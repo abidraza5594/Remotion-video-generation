@@ -1,0 +1,150 @@
+import { callMistral, extractJSON } from './mistralClient';
+import type { Scene, Storyboard, VideoFormat } from '../types';
+
+export interface StoryboardOptions {
+  topic: string;
+  format: VideoFormat;
+  estimatedDuration: number;
+  style?: string;
+}
+
+export async function generateStoryboard(opts: StoryboardOptions): Promise<Storyboard> {
+  const isShorts = opts.format === 'shorts';
+  const duration = isShorts
+    ? Math.max(15, Math.min(90, opts.estimatedDuration))
+    : Math.max(180, Math.min(1800, opts.estimatedDuration));
+
+  const width = isShorts ? 1080 : 1920;
+  const height = isShorts ? 1920 : 1080;
+
+  const sceneRules = isShorts
+    ? '- Max 6 scenes. Hook within first 3 seconds. Energetic pacing.'
+    : '- Min 8 scenes. Deep explanations. Cinematic pacing.';
+
+  const prompt = `You are a YouTube tutorial storyboard writer for cinematic developer tutorials.
+
+Topic: ${opts.topic}
+Style: ${opts.style || 'tutorial'}
+Video format: ${opts.format}
+Target duration: ${duration} seconds
+Canvas: ${width}x${height}
+
+Generate a complete storyboard as JSON only. No explanation, no markdown.
+Use this EXACT schema:
+{
+  "title": "string",
+  "topic": "string",
+  "format": "${opts.format}",
+  "totalDuration": number (seconds, approximately ${duration}),
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "scene_1",
+      "type": "hook|intro|problem|explanation|code|demo|summary|outro",
+      "startTime": number (seconds, sequential),
+      "duration": number (seconds, will be auto-corrected by audio length),
+      "narration": "string (what the narrator says, 1-3 sentences, plain spoken language)",
+      "visualDescription": "string (what the viewer sees on screen)",
+      "codeSnippet": "string or null (only for code scenes — real working code, NOT pseudocode)",
+      "language": "string or null (javascript, typescript, python, etc.)",
+      "cursorActions": [
+        {
+          "time": number (seconds from scene start),
+          "action": "move|click|highlight|zoom",
+          "target": "string (descriptive label)",
+          "x": number (0 to ${width}),
+          "y": number (0 to ${height}),
+          "duration": number (seconds for animation)
+        }
+      ],
+      "animations": [
+        {
+          "time": number (seconds from scene start),
+          "type": "typeCode|highlightLine|zoomIn|zoomOut|fadeIn|slideIn",
+          "target": "string",
+          "value": "string or null",
+          "duration": number
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": number (seconds from scene start),
+          "text": "string (max 8 words)",
+          "style": "headline|caption|code|highlight",
+          "position": "top|center|bottom"
+        }
+      ]
+    }
+  ]
+}
+
+Rules:
+- Every scene has narration synced with cursor actions
+- Code scenes MUST include a real codeSnippet with proper indentation and newlines
+- Cursor moves like a real instructor — purposeful, deliberate
+- No filler scenes
+${sceneRules}
+- Narration should be conversational and natural
+- For ${opts.format === 'shorts' ? 'Shorts' : 'long form'}: ${
+    isShorts ? 'punchy, high-energy phrases' : 'measured, explanatory tone'
+  }
+- Cursor coordinates must be within ${width}x${height}
+- All numeric values must be numbers, not strings
+`;
+
+  const raw = await callMistral(
+    [
+      { role: 'system', content: 'You are an expert tutorial storyboard generator. You output strict JSON only.' },
+      { role: 'user', content: prompt },
+    ],
+    { temperature: 0.7, jsonMode: true, maxTokens: 8000 },
+  );
+
+  const parsed = extractJSON<Storyboard>(raw);
+  return normalizeStoryboard(parsed, opts);
+}
+
+function normalizeStoryboard(sb: Storyboard, opts: StoryboardOptions): Storyboard {
+  if (!sb.scenes || sb.scenes.length === 0) {
+    throw new Error('Storyboard has no scenes.');
+  }
+
+  let cursor = 0;
+  const scenes: Scene[] = sb.scenes.map((s, idx) => {
+    const duration = Math.max(1, Number(s.duration) || 3);
+    const scene: Scene = {
+      id: s.id || `scene_${idx + 1}`,
+      type: (s.type as Scene['type']) || 'explanation',
+      startTime: cursor,
+      duration,
+      narration: (s.narration || '').trim() || 'Continuing the tutorial.',
+      visualDescription: s.visualDescription || '',
+      codeSnippet: s.codeSnippet || null,
+      language: s.language || null,
+      cursorActions: Array.isArray(s.cursorActions) ? s.cursorActions : [],
+      animations: Array.isArray(s.animations) ? s.animations : [],
+      textOverlays: Array.isArray(s.textOverlays) ? s.textOverlays : [],
+    };
+    cursor += duration;
+    return scene;
+  });
+
+  return {
+    title: sb.title || opts.topic,
+    topic: opts.topic,
+    format: opts.format,
+    totalDuration: cursor,
+    fps: 30,
+    scenes,
+  };
+}
+
+export function recalculateTimings(storyboard: Storyboard): Storyboard {
+  let cursor = 0;
+  for (const scene of storyboard.scenes) {
+    scene.startTime = cursor;
+    cursor += scene.duration;
+  }
+  storyboard.totalDuration = cursor;
+  return storyboard;
+}

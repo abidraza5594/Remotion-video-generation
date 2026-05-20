@@ -1,0 +1,17 @@
+{
+  "fps": 30,
+  "totalFrames": 180,
+  "width": 1920,
+  "height": 1080,
+  "format": "long",
+  "scenes": [
+    {
+      "id": "placeholder",
+      "type": "hook",
+      "startFrame": 0,
+      "endFrame": 180,
+      "durationFrames": 180,
+      "cursorKeyframes": []
+    }
+  ]
+}

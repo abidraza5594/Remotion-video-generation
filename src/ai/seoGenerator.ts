@@ -1,0 +1,128 @@
+import { callMistral, extractJSON } from './mistralClient';
+import type { YouTubeCopy, InstagramCopy, LinkedInCopy } from '../types';
+
+function fmtTime(seconds: number): string {
+  const s = Math.max(0, Math.floor(seconds));
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
+export async function generateYouTubeCopy(opts: {
+  topic: string;
+  durationSeconds: number;
+  chapters?: { time: string; title: string }[];
+}): Promise<YouTubeCopy> {
+  const chapterHint = opts.chapters && opts.chapters.length
+    ? `\nKnown chapters (use as-is):\n${opts.chapters.map((c) => `${c.time} - ${c.title}`).join('\n')}`
+    : '';
+
+  const raw = await callMistral(
+    [
+      { role: 'system', content: 'You generate SEO-optimized YouTube metadata. JSON only.' },
+      {
+        role: 'user',
+        content: `Generate SEO-optimized YouTube metadata.
+Topic: ${opts.topic}
+Duration: ${opts.durationSeconds} seconds
+Target audience: developers${chapterHint}
+
+Return JSON only. No markdown:
+{
+  "title": "string (max 70 chars, main keyword present, no clickbait, no all-caps)",
+  "description": "string (first 150 chars is the hook, then full explanation, then chapters section, then links placeholder, max 4000 chars)",
+  "chapters": [{ "time": "0:00", "title": "Introduction" }],
+  "tags": ["string", "..."] ,
+  "thumbnailText": "string (max 5 words, high contrast)"
+}
+Rules:
+- 15 tags total — mix broad and specific
+- chapters: 1 entry per major scene, time format M:SS
+- thumbnailText: clear, punchy, no clickbait`,
+      },
+    ],
+    { temperature: 0.6, jsonMode: true, maxTokens: 2500 },
+  );
+
+  const parsed = extractJSON<YouTubeCopy>(raw);
+  if (!parsed.chapters || parsed.chapters.length === 0) {
+    parsed.chapters = opts.chapters || [{ time: '0:00', title: 'Introduction' }];
+  }
+  parsed.title = (parsed.title || opts.topic).slice(0, 70);
+  parsed.tags = (parsed.tags || []).slice(0, 15);
+  return parsed;
+}
+
+export async function generateInstagramCopy(opts: { topic: string }): Promise<InstagramCopy> {
+  const raw = await callMistral(
+    [
+      { role: 'system', content: 'You generate Instagram Reels captions. JSON only.' },
+      {
+        role: 'user',
+        content: `Generate Instagram Reels caption for developer audience.
+Topic: ${opts.topic}
+
+Return JSON only. No markdown:
+{
+  "hook": "first line — stops scroll, question or bold statement, max 100 chars",
+  "body": "2-3 short paragraphs, educational, conversational, max 800 chars",
+  "hashtags": ["array of 30 hashtags — mix mega (>1M), mid (100k-1M), niche (<100k), branded"],
+  "cta": "one line CTA, max 60 chars"
+}`,
+      },
+    ],
+    { temperature: 0.75, jsonMode: true, maxTokens: 2000 },
+  );
+
+  const parsed = extractJSON<InstagramCopy>(raw);
+  parsed.hashtags = (parsed.hashtags || []).slice(0, 30).map((h) => (h.startsWith('#') ? h : `#${h}`));
+  return parsed;
+}
+
+export async function generateLinkedInCopy(opts: { topic: string }): Promise<LinkedInCopy> {
+  const raw = await callMistral(
+    [
+      { role: 'system', content: 'You generate LinkedIn posts for senior developers. JSON only.' },
+      {
+        role: 'user',
+        content: `Generate LinkedIn post for senior developers and tech leads.
+Topic: ${opts.topic}
+
+Return JSON only. No markdown:
+{
+  "headline": "attention-grabbing first line, max 150 chars",
+  "body": "3-4 professional paragraphs, insight-focused, no fluff, max 100 words each",
+  "bulletPoints": ["3-5 key takeaways"],
+  "hashtags": ["max 5 professional hashtags"],
+  "cta": "engagement-driving question or call to action"
+}`,
+      },
+    ],
+    { temperature: 0.5, jsonMode: true, maxTokens: 2000 },
+  );
+
+  const parsed = extractJSON<LinkedInCopy>(raw);
+  parsed.hashtags = (parsed.hashtags || []).slice(0, 5).map((h) => (h.startsWith('#') ? h : `#${h}`));
+  parsed.bulletPoints = (parsed.bulletPoints || []).slice(0, 5);
+  return parsed;
+}
+
+export function chaptersFromStoryboard(scenes: { type: string; startTime: number }[]): { time: string; title: string }[] {
+  const titleByType: Record<string, string> = {
+    hook: 'Hook',
+    intro: 'Introduction',
+    problem: 'The Problem',
+    explanation: 'How It Works',
+    code: 'Code Walkthrough',
+    demo: 'Live Demo',
+    summary: 'Key Takeaways',
+    outro: 'Wrap Up',
+  };
+  const seen: Record<string, number> = {};
+  return scenes.map((s) => {
+    const base = titleByType[s.type] || 'Section';
+    seen[base] = (seen[base] || 0) + 1;
+    const title = seen[base] > 1 ? `${base} ${seen[base]}` : base;
+    return { time: fmtTime(s.startTime), title };
+  });
+}

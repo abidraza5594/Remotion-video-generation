@@ -1,0 +1,25 @@
+{
+  "title": "Cinematic AI Studio",
+  "topic": "Preview",
+  "format": "long",
+  "totalDuration": 6,
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "placeholder",
+      "type": "hook",
+      "startTime": 0,
+      "duration": 6,
+      "narration": "Run npm run generate-video to create real content.",
+      "visualDescription": "",
+      "codeSnippet": null,
+      "language": null,
+      "cursorActions": [],
+      "animations": [],
+      "textOverlays": [
+        { "time": 0, "text": "Cinematic AI Studio", "style": "headline", "position": "center" },
+        { "time": 0, "text": "Preview composition — run the CLI to generate real videos.", "style": "caption", "position": "center" }
+      ]
+    }
+  ]
+}

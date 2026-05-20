@@ -1,0 +1,11 @@
+.env
+.env.local
+.auth.json
+node_modules/
+temp/
+output/
+dist/
+*.log
+.DS_Store
+.idea/
+.vscode/
