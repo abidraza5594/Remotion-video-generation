@@ -5,7 +5,11 @@ export function openInBrowser(url: string): void {
   const platform = os.platform();
   try {
     if (platform === 'win32') {
-      spawn('cmd', ['/c', 'start', '""', url], { detached: true, stdio: 'ignore' }).unref();
+      spawn(
+        'powershell.exe',
+        ['-NoProfile', '-Command', 'Start-Process -FilePath $args[0]', url],
+        { detached: true, stdio: 'ignore' },
+      ).unref();
     } else if (platform === 'darwin') {
       spawn('open', [url], { detached: true, stdio: 'ignore' }).unref();
     } else {

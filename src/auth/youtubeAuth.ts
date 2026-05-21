@@ -29,6 +29,8 @@ export async function loginYouTube(): Promise<YouTubeAccount> {
     access_type: 'offline',
     scope: YOUTUBE_SCOPES,
     prompt: 'consent',
+    response_type: 'code',
+    include_granted_scopes: true,
   });
 
   const server = await startCallbackServer();
