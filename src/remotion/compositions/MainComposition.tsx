@@ -1,7 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, Sequence, Audio } from 'remotion';
 import { SceneRouter } from '../scenes/SceneRouter';
-import { CursorOverlay } from '../components/CursorOverlay';
 import { CaptionBar } from '../components/CaptionBar';
 import { DEFAULT_BRANDING, Branding } from '../../utils/branding';
 import type { Storyboard, TimingFile } from '../../types';
@@ -46,10 +45,6 @@ export const MainComposition: React.FC<MainCompositionProps> = ({
           </Sequence>
         );
       })}
-
-      <CursorOverlay
-        keyframes={timing.scenes.flatMap((s) => s.cursorKeyframes)}
-      />
 
       {isShorts && storyboard.scenes.map((scene) => {
         const entry = timing.scenes.find((s) => s.id === scene.id);

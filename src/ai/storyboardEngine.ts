@@ -12,15 +12,22 @@ export interface StoryboardOptions {
 export async function generateStoryboard(opts: StoryboardOptions): Promise<Storyboard> {
   const isShorts = opts.format === 'shorts';
   const duration = isShorts
-    ? Math.max(15, Math.min(90, opts.estimatedDuration))
-    : Math.max(180, Math.min(1800, opts.estimatedDuration));
+    ? Math.max(30, Math.min(150, opts.estimatedDuration))
+    : Math.max(240, Math.min(1800, opts.estimatedDuration));
 
   const width = isShorts ? 1080 : 1920;
   const height = isShorts ? 1920 : 1080;
 
   const sceneRules = isShorts
-    ? '- Max 6 scenes. Hook within first 3 seconds. Energetic pacing.'
-    : '- Min 8 scenes. Deep explanations. Cinematic pacing.';
+    ? `- Scene count is DYNAMIC based on topic depth: simple topic = 6-8 scenes, medium = 8-10 scenes, complex/code-heavy topic = 10-14 scenes.
+- Hook must land within first 3 seconds.
+- Energetic, fast pacing — each scene 6-12 seconds.
+- Cover the topic THOROUGHLY: hook → problem → 3+ explanation/code scenes → demo → summary → outro.
+- For coding topics, include 3-5 code scenes (different aspects, examples, gotchas).`
+    : `- Scene count is DYNAMIC based on topic depth: simple = 8-10 scenes, medium = 10-14 scenes, complex/code-heavy = 14-20 scenes.
+- Deep explanations, cinematic pacing — each scene 20-60 seconds.
+- For coding topics, include at least 5 code scenes with progressive complexity.
+- Structure: hook → motivation → core concepts → multiple code examples → live demo → edge cases → summary → outro.`;
 
   const prompt = `You are a YouTube tutorial storyboard writer for cinematic developer tutorials.
 
@@ -44,8 +51,8 @@ Use this EXACT schema:
       "type": "hook|intro|problem|explanation|code|demo|summary|outro",
       "startTime": number (seconds, sequential),
       "duration": number (seconds, will be auto-corrected by audio length),
-      "narration": "string (what the narrator says, 1-3 sentences, plain spoken language)",
-      "visualDescription": "string (what the viewer sees on screen)",
+      "narration": "string (what the narrator says — explanation/code scenes: 3-5 full sentences with substantive info. Hook: 2 sentences. Summary: 4-6 short takeaway sentences. Outro: 1-2 sentences. NEVER one phrase.)",
+      "visualDescription": "string (INTERNAL notes about the visual — NOT shown to viewer)",
       "codeSnippet": "string or null (only for code scenes — real working code, NOT pseudocode)",
       "language": "string or null (javascript, typescript, python, etc.)",
       "cursorActions": [
@@ -70,7 +77,7 @@ Use this EXACT schema:
       "textOverlays": [
         {
           "time": number (seconds from scene start),
-          "text": "string (max 8 words)",
+          "text": "string (headline: 3-6 words MAX. caption: a substantive bullet point, 6-14 words, no padding. NEVER short keywords.)",
           "style": "headline|caption|code|highlight",
           "position": "top|center|bottom"
         }
@@ -79,25 +86,34 @@ Use this EXACT schema:
   ]
 }
 
+For every explanation/code/demo/problem scene, include:
+  - 1 headline overlay (3-6 word title for the scene)
+  - 3-5 caption overlays (substantive bullet points the viewer reads — full mini-thoughts, NOT keywords)
+For every summary scene: 4-6 caption overlays, each a discrete takeaway.
+
 Rules:
-- Every scene has narration synced with cursor actions
-- Code scenes MUST include a real codeSnippet with proper indentation and newlines
-- Cursor moves like a real instructor — purposeful, deliberate
-- No filler scenes
+- COVER THE TOPIC THOROUGHLY — do not be brief. Every important aspect of the topic must get a dedicated scene.
+- Every scene must have narration synced with cursor actions
+- Code scenes MUST include a real, runnable codeSnippet (5-15 lines, proper indentation, real-world example — NOT pseudocode, NOT trivial one-liners)
+- For each code scene, the animations array MUST include at least ONE "highlightLine" event with a numeric "value" pointing to the most important line — this drives the visible cursor pointer
+- Cursor moves like a real instructor — purposeful, deliberate, every cursorAction with action="highlight" or "click" should land near where the visual interest is
 ${sceneRules}
-- Narration should be conversational and natural
+- Narration should be conversational and natural — full sentences, no bullet-point speech
 - For ${opts.format === 'shorts' ? 'Shorts' : 'long form'}: ${
     isShorts ? 'punchy, high-energy phrases' : 'measured, explanatory tone'
   }
+- Each textOverlay headline should be SHORT (3-6 words). Captions can be longer (one full sentence).
 - Cursor coordinates must be within ${width}x${height}
 - All numeric values must be numbers, not strings
+- DO NOT skip the "summary" scene — list 3-5 takeaways
+- DO NOT skip the "outro" scene — short, narration drives the CTA
 `;
 
   const { data, provider } = await callAIForJSON<Storyboard>({
-    systemPrompt: 'You are an expert tutorial storyboard generator. You output strict JSON only.',
+    systemPrompt: 'You are an expert tutorial storyboard generator. You output strict JSON only. You cover topics in depth with many scenes.',
     userPrompt: prompt,
     temperature: 0.7,
-    maxTokens: 8000,
+    maxTokens: 16000,
   });
   logger.info(`Storyboard generated by: ${provider}`);
   return normalizeStoryboard(data, opts);

@@ -28,7 +28,7 @@ export async function pickTopic(): Promise<{ topic: string; estimatedDuration: n
   ]);
 
   if (mode === 'ai') {
-    logger.step('Asking Mistral for trending developer topics...');
+    logger.step('Asking AI for trending developer topics...');
     const suggestions = await generateTopicSuggestions();
 
     const { pick } = await inquirer.prompt<{ pick: number }>([
@@ -86,7 +86,7 @@ export async function pickFormat(): Promise<VideoFormat> {
 export async function runPipeline(ctx: { topic: string; format: VideoFormat; estimatedDuration: number; style?: string }): Promise<GenerationContext> {
   ensureDirs();
 
-  logger.step('Generating storyboard via Mistral AI...');
+  logger.step('Generating storyboard via AI (Gemini → Mistral fallback)...');
   let storyboard = await generateStoryboard({
     topic: ctx.topic,
     format: ctx.format,

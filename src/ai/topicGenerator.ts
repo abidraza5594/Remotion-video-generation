@@ -15,12 +15,16 @@ Return JSON only with this exact shape:
       "title": "string (concrete, specific topic)",
       "hook": "string (one-line hook that grabs attention)",
       "difficulty": "beginner|intermediate|advanced",
-      "estimatedDuration": number (seconds, between 60 and 1500),
+      "estimatedDuration": number (seconds — Shorts: 75-130 for full coverage, Long form: 360-900),
       "whyTrending": "string (one sentence explaining current relevance)"
     }
   ]
 }
-Rules: exactly 5 topics, mix of difficulty levels, no markdown, no commentary.`;
+Rules:
+- Exactly 5 topics, mix of difficulty levels
+- estimatedDuration must give enough time to thoroughly cover the topic with multiple code examples
+- Default to the high end of the duration range for code-heavy or advanced topics
+- No markdown, no commentary`;
 
   const { data, provider } = await callAIForJSON<{ topics: TopicSuggestion[] } | TopicSuggestion[]>({
     systemPrompt: system,

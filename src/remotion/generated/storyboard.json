@@ -1,64 +1,57 @@
 {
-  "title": "Mastering TypeScript Template Literal Types for Ultra-Safe API Routing",
-  "topic": "Mastering TypeScript Template Literal Types for Ultra-Safe API Routing",
+  "title": "React 19 Server Actions: Say Goodbye to useEffect for Form Submissions",
+  "topic": "React 19 Server Actions: Say Goodbye to useEffect for Form Submissions",
   "format": "shorts",
-  "totalDuration": 61.06,
+  "totalDuration": 181.104,
   "fps": 30,
   "scenes": [
     {
       "id": "scene_1",
       "type": "hook",
       "startTime": 0,
-      "duration": 13.268,
-      "narration": "Are you still hardcoding API routes as loose strings? One tiny typo like 'userz' instead of 'users' and your app crashes in production. Let's fix this forever using TypeScript.",
-      "visualDescription": "A dark-themed VS Code window showing a broken fetch call with a red squiggly line under a misspelled API route. A simulated browser console next to it flashes a red '404 Not Found' error.",
-      "codeSnippet": "// ❌ The dangerous way\nfunction fetchUserData(route: string) {\n  return fetch(route);\n}\n\nfetchUserData(\"/api/v1/userz\"); // No error!",
-      "language": "typescript",
+      "duration": 13.58,
+      "narration": "Are you still writing endless useEffect hooks and useState variables just to submit a simple form in React? Stop doing that right now because React 19 completely changes the game with Server Actions.",
+      "visualDescription": "A split screen showing messy, crossed-out React 18 form code on the left, and clean React 19 Server Action form code on the right with a green checkmark.",
+      "codeSnippet": null,
+      "language": null,
       "cursorActions": [
         {
-          "time": 3,
-          "action": "highlight",
-          "target": "route: string",
-          "x": 540,
-          "y": 800,
-          "duration": 1.5
+          "time": 2,
+          "action": "move",
+          "target": "Messy React 18 code",
+          "x": 270,
+          "y": 960,
+          "duration": 1
         },
         {
-          "time": 7,
-          "action": "zoom",
-          "target": "\"/api/v1/userz\"",
-          "x": 540,
-          "y": 1100,
+          "time": 6,
+          "action": "move",
+          "target": "Clean React 19 code",
+          "x": 810,
+          "y": 960,
           "duration": 1
         }
       ],
       "animations": [
         {
-          "time": 1,
-          "type": "fadeIn",
-          "target": "VS Code Editor",
-          "value": null,
-          "duration": 0.5
-        },
-        {
-          "time": 6,
-          "type": "highlightLine",
-          "target": "Line 6",
-          "value": "red",
-          "duration": 2
+          "time": 3,
+          "type": "zoomIn",
+          "target": "Messy React 18 code",
+          "value": "1.2",
+          "duration": 1
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Stop using loose strings!",
+          "text": "Ditch useEffect Today!",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 6,
-          "text": "Easy typos = Silent crashes",
-          "style": "highlight",
+          "time": 4,
+          "text": "React 19 Server Actions completely eliminate boilerplate form submission state.",
+          "style": "caption",
           "position": "bottom"
         }
       ],
@@ -67,33 +60,48 @@
     },
     {
       "id": "scene_2",
-      "type": "explanation",
-      "startTime": 13.268,
-      "duration": 12.932,
-      "narration": "Instead of accepting any generic string, we can force TypeScript to validate the exact pattern of our endpoints using Template Literal Types. It's like regex, but purely in the type system.",
-      "visualDescription": "A beautiful motion graphic showing a string template schema morphing into a strict TypeScript type definition with glowing visual connectors.",
+      "type": "problem",
+      "startTime": 13.58,
+      "duration": 16.58,
+      "narration": "Before React 19, handling forms meant writing manual event handlers, preventing default behavior, managing loading states, and handling errors. Your components quickly became bloated with repetitive boilerplate code that was hard to maintain.",
+      "visualDescription": "A code editor view zooming into a massive React component filled with state hooks and handle submit functions, highlighting the sheer volume of code.",
       "codeSnippet": null,
       "language": null,
-      "cursorActions": [],
+      "cursorActions": [
+        {
+          "time": 3,
+          "action": "highlight",
+          "target": "useState boilerplate",
+          "x": 540,
+          "y": 600,
+          "duration": 2
+        }
+      ],
       "animations": [
         {
-          "time": 2,
-          "type": "slideIn",
-          "target": "Type Schema Diagram",
-          "value": "center",
+          "time": 1,
+          "type": "fadeIn",
+          "target": "Code Editor",
+          "value": null,
           "duration": 1
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Template Literal Types",
+          "text": "The Boilerplate Nightmare",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 6,
-          "text": "Pattern matching for types",
+          "time": 3,
+          "text": "Handling loading, error, and success states manually requires dozens of lines.",
+          "style": "caption",
+          "position": "center"
+        },
+        {
+          "time": 7,
+          "text": "Preventing default event behavior is an unnecessary step in modern apps.",
           "style": "caption",
           "position": "bottom"
         }
@@ -103,58 +111,57 @@
     },
     {
       "id": "scene_3",
-      "type": "code",
-      "startTime": 26.200000000000003,
-      "duration": 10.364,
-      "narration": "Let's build a dynamic route type. By using backticks inside our type definition, we can enforce that every route must start strictly with '/api/'.",
-      "visualDescription": "VS Code editor typing out a template literal type. The cursor blinks and types smoothly, highlighting the syntax as it goes.",
-      "codeSnippet": "type ApiRoute = `/api/${string}`;\n\nfunction secureFetch(route: ApiRoute) {\n  return fetch(route);\n}\n\n// ❌ Compiler Error!\nsecureFetch(\"api/users\");\n\n// ✅ Allowed!\nsecureFetch(\"/api/users\");",
-      "language": "typescript",
+      "type": "explanation",
+      "startTime": 30.159999999999997,
+      "duration": 17.252,
+      "narration": "React 19 Server Actions allow you to pass asynchronous functions directly to HTML form elements. This means your client-side form can trigger secure, server-side code without manually setting up API endpoints or managing loading states.",
+      "visualDescription": "An elegant interactive architecture diagram showing a client-side form sending a direct action to a server-side database with zero intermediate API boilerplate.",
+      "codeSnippet": null,
+      "language": null,
       "cursorActions": [
         {
-          "time": 2,
+          "time": 4,
           "action": "move",
-          "target": "ApiRoute definition",
-          "x": 480,
-          "y": 450,
+          "target": "Client Form Node",
+          "x": 300,
+          "y": 960,
           "duration": 1
         },
         {
-          "time": 10,
-          "action": "click",
-          "target": "secureFetch(\"api/users\") error",
-          "x": 480,
-          "y": 1200,
-          "duration": 0.5
+          "time": 8,
+          "action": "move",
+          "target": "Server Database Node",
+          "x": 780,
+          "y": 960,
+          "duration": 1
         }
       ],
       "animations": [
         {
-          "time": 0.5,
-          "type": "typeCode",
-          "target": "Editor",
-          "value": "type ApiRoute = `/api/${string}`;",
-          "duration": 4
-        },
-        {
-          "time": 9,
-          "type": "highlightLine",
-          "target": "Line 8",
-          "value": "red",
-          "duration": 1.5
+          "time": 2,
+          "type": "slideIn",
+          "target": "Client Form Node",
+          "value": null,
+          "duration": 1
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Enforcing the prefix",
+          "text": "Direct Server Execution",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 8,
-          "text": "Missing '/' caught instantly!",
-          "style": "highlight",
+          "time": 3,
+          "text": "Pass async functions directly into native HTML action attributes.",
+          "style": "caption",
+          "position": "center"
+        },
+        {
+          "time": 7,
+          "text": "No manual API routes required to bridge client and server.",
+          "style": "caption",
           "position": "bottom"
         }
       ],
@@ -164,57 +171,49 @@
     {
       "id": "scene_4",
       "type": "code",
-      "startTime": 36.56400000000001,
-      "duration": 13.508,
-      "narration": "We can take this even further. Let's restrict the route to specific resources like 'users' or 'posts', followed strictly by a numeric ID. Watch the compiler block invalid IDs.",
-      "visualDescription": "VS Code showing an advanced type definition. We see the compiler instantly flags a route with a non-numeric ID.",
-      "codeSnippet": "type Resource = \"users\" | \"posts\";\ntype StrictRoute = `/api/${Resource}/${number}`;\n\nfunction get(route: StrictRoute) {\n  return fetch(route);\n}\n\n// ❌ Error: 'abc' is not a number\nget(\"/api/users/abc\");\n\n// ✅ Perfect!\nget(\"/api/users/123\");",
-      "language": "typescript",
+      "startTime": 47.41199999999999,
+      "duration": 15.092,
+      "narration": "Let's look at the old way of doing things. We had to prevent the default submit action, manage loading states manually, and fetch from an API route. It's a lot of moving parts just to save a single input value.",
+      "visualDescription": "A code editor exhibiting classic React 18 form logic with manual state handling and client-side fetch calls.",
+      "codeSnippet": "function OldForm() {\n  const [loading, setLoading] = useState(false);\n  const handleSubmit = async (e) => {\n    e.preventDefault();\n    setLoading(true);\n    await fetch('/api/submit', {\n      method: 'POST',\n      body: new FormData(e.target)\n    });\n    setLoading(false);\n  };\n  return <form onSubmit={handleSubmit}>...</form>;\n}",
+      "language": "javascript",
       "cursorActions": [
         {
-          "time": 3,
+          "time": 4,
           "action": "highlight",
-          "target": "Resource union",
-          "x": 500,
-          "y": 380,
-          "duration": 1
-        },
-        {
-          "time": 12,
-          "action": "move",
-          "target": "get(\"/api/users/abc\")",
-          "x": 500,
-          "y": 1300,
-          "duration": 1
+          "target": "preventDefault line",
+          "x": 540,
+          "y": 700,
+          "duration": 1.5
         }
       ],
       "animations": [
         {
           "time": 1,
           "type": "typeCode",
-          "target": "Editor",
-          "value": "type StrictRoute = `/api/${Resource}/${number}`;",
-          "duration": 5
+          "target": "codeEditor",
+          "value": null,
+          "duration": 3
         },
         {
-          "time": 11,
-          "type": "zoomIn",
-          "target": "Error line",
-          "value": null,
+          "time": 5,
+          "type": "highlightLine",
+          "target": "codeEditor",
+          "value": "4",
           "duration": 1
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Ultra-strict dynamic routing",
+          "text": "The Legacy React 18 Way",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 11,
-          "text": "No more bad IDs!",
-          "style": "highlight",
+          "time": 4,
+          "text": "Manual fetch requests require explicit error and loading state variables.",
+          "style": "caption",
           "position": "bottom"
         }
       ],
@@ -223,55 +222,428 @@
     },
     {
       "id": "scene_5",
-      "type": "demo",
-      "startTime": 50.072,
-      "duration": 10.988,
-      "narration": "Now, your IDE auto-completes correct endpoints and blocks bugs before they ever hit your git repo. Subscribe for more expert TypeScript tips!",
-      "visualDescription": "An interactive autocomplete popup list of valid routes appearing instantly in VS Code as the developer types 'get(\"'. The video ends with a clean subscribe animation overlay.",
-      "codeSnippet": "get(\"/api/users/456\"); // Autocomplete magic!",
-      "language": "typescript",
+      "type": "code",
+      "startTime": 62.50399999999999,
+      "duration": 15.092,
+      "narration": "Now, look at how simple this is with React 19. We define an asynchronous function with the 'use server' directive at the top. This function runs securely on the server, directly receiving the form data object.",
+      "visualDescription": "Code editor displaying a simple server action function that directly accesses form data and interacts with a database.",
+      "codeSnippet": "// actions.js\n'use server';\n\nexport async function submitData(formData) {\n  const email = formData.get('email');\n  await db.users.create({ email });\n  return { success: true };\n}",
+      "language": "javascript",
       "cursorActions": [
         {
-          "time": 2,
-          "action": "click",
-          "target": "Autocomplete list item",
+          "time": 3,
+          "action": "highlight",
+          "target": "'use server' directive",
           "x": 540,
-          "y": 960,
-          "duration": 0.5
+          "y": 300,
+          "duration": 1
         }
       ],
       "animations": [
         {
           "time": 1,
-          "type": "fadeIn",
-          "target": "Autocomplete Popup",
+          "type": "typeCode",
+          "target": "codeEditor",
           "value": null,
-          "duration": 0.3
+          "duration": 3
         },
         {
-          "time": 8,
-          "type": "zoomOut",
-          "target": "Editor",
-          "value": null,
+          "time": 4,
+          "type": "highlightLine",
+          "target": "codeEditor",
+          "value": "2",
           "duration": 1
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Zero-overhead type safety!",
+          "text": "Defining Server Actions",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 7,
-          "text": "Subscribe for more!",
-          "style": "highlight",
+          "time": 4,
+          "text": "The 'use server' directive marks the boundary for secure server execution.",
+          "style": "caption",
           "position": "bottom"
         }
       ],
       "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_5.mp3",
       "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_5.vtt"
+    },
+    {
+      "id": "scene_6",
+      "type": "code",
+      "startTime": 77.59599999999999,
+      "duration": 14.852,
+      "narration": "To connect this server action to our UI, we simply pass it to the action attribute of the form element. React automatically handles the submission event, extracts the form data, and triggers our server action seamlessly.",
+      "visualDescription": "Code editor showing a clean React 19 component that imports the server action and passes it to the form action attribute.",
+      "codeSnippet": "import { submitData } from './actions';\n\nfunction NewForm() {\n  return (\n    <form action={submitData}>\n      <input name=\"email\" type=\"email\" />\n      <button type=\"submit\">Submit</button>\n    </form>\n  );\n}",
+      "language": "javascript",
+      "cursorActions": [
+        {
+          "time": 5,
+          "action": "highlight",
+          "target": "form action attribute",
+          "x": 540,
+          "y": 800,
+          "duration": 1.5
+        }
+      ],
+      "animations": [
+        {
+          "time": 1,
+          "type": "typeCode",
+          "target": "codeEditor",
+          "value": null,
+          "duration": 3
+        },
+        {
+          "time": 6,
+          "type": "highlightLine",
+          "target": "codeEditor",
+          "value": "5",
+          "duration": 1
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Seamless Form Binding",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 4,
+          "text": "Pass your server action directly to the action prop of the form.",
+          "style": "caption",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_6.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_6.vtt"
+    },
+    {
+      "id": "scene_7",
+      "type": "code",
+      "startTime": 92.448,
+      "duration": 13.964,
+      "narration": "But how do we handle server responses and loading states? React 19 introduces the useActionState hook, which tracks the action's pending status and returns the latest form state returned from the server.",
+      "visualDescription": "Code editor showing the useActionState hook being destructured to get the form state, action trigger, and pending boolean.",
+      "codeSnippet": "import { useActionState } from 'react';\nimport { submitData } from './actions';\n\nfunction Form() {\n  const [state, action, isPending] = useActionState(submitData, null);\n  return (\n    <form action={action}>\n      <input name=\"email\" type=\"email\" />\n      <button disabled={isPending}>Submit</button>\n    </form>\n  );\n}",
+      "language": "javascript",
+      "cursorActions": [
+        {
+          "time": 5,
+          "action": "highlight",
+          "target": "useActionState hook call",
+          "x": 540,
+          "y": 650,
+          "duration": 1.5
+        }
+      ],
+      "animations": [
+        {
+          "time": 1,
+          "type": "typeCode",
+          "target": "codeEditor",
+          "value": null,
+          "duration": 3
+        },
+        {
+          "time": 6,
+          "type": "highlightLine",
+          "target": "codeEditor",
+          "value": "5",
+          "duration": 1
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Managing Action State",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 4,
+          "text": "Use useActionState to easily track loading states and server responses.",
+          "style": "caption",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_7.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_7.vtt"
+    },
+    {
+      "id": "scene_8",
+      "type": "code",
+      "startTime": 106.41199999999999,
+      "duration": 13.076,
+      "narration": "If you have nested button components, you don't even need to pass the loading state down as a prop. The useFormStatus hook lets child components access the parent form's pending status directly.",
+      "visualDescription": "Code editor showing a nested SubmitButton component using useFormStatus to disable itself during active submissions.",
+      "codeSnippet": "import { useFormStatus } from 'react-dom';\n\nfunction SubmitButton() {\n  const { pending } = useFormStatus();\n  return (\n    <button type=\"submit\" disabled={pending}>\n      {pending ? 'Submitting...' : 'Submit'}\n    </button>\n  );\n}",
+      "language": "javascript",
+      "cursorActions": [
+        {
+          "time": 4,
+          "action": "highlight",
+          "target": "useFormStatus hook destructuring",
+          "x": 540,
+          "y": 600,
+          "duration": 1.5
+        }
+      ],
+      "animations": [
+        {
+          "time": 1,
+          "type": "typeCode",
+          "target": "codeEditor",
+          "value": null,
+          "duration": 3
+        },
+        {
+          "time": 5,
+          "type": "highlightLine",
+          "target": "codeEditor",
+          "value": "4",
+          "duration": 1
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "No More Prop Drilling",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 4,
+          "text": "useFormStatus accesses the parent form context automatically from anywhere.",
+          "style": "caption",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_8.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_8.vtt"
+    },
+    {
+      "id": "scene_9",
+      "type": "code",
+      "startTime": 119.488,
+      "duration": 14.636,
+      "narration": "For an ultra-responsive user experience, React 19 provides the useOptimistic hook. This allows you to immediately update the UI with the expected result while the server action is still processing in the background.",
+      "visualDescription": "Code editor showing useOptimistic hook updating a list immediately before the database write completes.",
+      "codeSnippet": "import { useOptimistic } from 'react';\n\nfunction List({ items }) {\n  const [optItems, setOpt] = useOptimistic(items, (state, newItem) => [\n    ...state, { text: newItem, sending: true }\n  ]);\n  // ... rest of component logic\n}",
+      "language": "javascript",
+      "cursorActions": [
+        {
+          "time": 5,
+          "action": "highlight",
+          "target": "useOptimistic hook call",
+          "x": 540,
+          "y": 600,
+          "duration": 1.5
+        }
+      ],
+      "animations": [
+        {
+          "time": 1,
+          "type": "typeCode",
+          "target": "codeEditor",
+          "value": null,
+          "duration": 3
+        },
+        {
+          "time": 6,
+          "type": "highlightLine",
+          "target": "codeEditor",
+          "value": "4",
+          "duration": 1
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Instant Optimistic Updates",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 4,
+          "text": "Update the UI instantly while the server action processes.",
+          "style": "caption",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_9.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_9.vtt"
+    },
+    {
+      "id": "scene_10",
+      "type": "demo",
+      "startTime": 134.124,
+      "duration": 15.044,
+      "narration": "Watch how fast and seamless this is in action. When we click submit, the UI updates instantly, the server processes the database write securely, and any errors are caught and handled gracefully without a single useEffect.",
+      "visualDescription": "A side-by-side demonstration showing the user interface form on the left submitting data, and the real-time database log updating on the right instantly.",
+      "codeSnippet": null,
+      "language": null,
+      "cursorActions": [
+        {
+          "time": 3,
+          "action": "click",
+          "target": "Submit Button",
+          "x": 300,
+          "y": 1100,
+          "duration": 0.5
+        }
+      ],
+      "animations": [
+        {
+          "time": 4,
+          "type": "zoomIn",
+          "target": "Database Log",
+          "value": "1.1",
+          "duration": 1
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Real-World Performance",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 3,
+          "text": "Instant state transitions with flawless server integration.",
+          "style": "caption",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_10.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_10.vtt"
+    },
+    {
+      "id": "scene_11",
+      "type": "summary",
+      "startTime": 149.168,
+      "duration": 19.508,
+      "narration": "React 19 Server Actions completely redefine how we build web applications. They eliminate the need for manual API routes, drastically reduce boilerplate code, and provide built-in state management for loading and optimistic updates. Form handling is finally simple.",
+      "visualDescription": "An elegant summary slide showing 4 key takeaways with clean checkmark bullet points appearing sequentially.",
+      "codeSnippet": null,
+      "language": null,
+      "cursorActions": [],
+      "animations": [
+        {
+          "time": 1,
+          "type": "fadeIn",
+          "target": "Takeaway 1",
+          "value": null,
+          "duration": 0.5
+        },
+        {
+          "time": 4,
+          "type": "fadeIn",
+          "target": "Takeaway 2",
+          "value": null,
+          "duration": 0.5
+        },
+        {
+          "time": 7,
+          "type": "fadeIn",
+          "target": "Takeaway 3",
+          "value": null,
+          "duration": 0.5
+        },
+        {
+          "time": 10,
+          "type": "fadeIn",
+          "target": "Takeaway 4",
+          "value": null,
+          "duration": 0.5
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Why Server Actions Win",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 2,
+          "text": "Zero manual API routes needed for secure backend integration.",
+          "style": "caption",
+          "position": "center"
+        },
+        {
+          "time": 5,
+          "text": "Automatic pending states with the new useActionState hook.",
+          "style": "caption",
+          "position": "center"
+        },
+        {
+          "time": 8,
+          "text": "No more useEffect or useState needed for basic forms.",
+          "style": "caption",
+          "position": "bottom"
+        },
+        {
+          "time": 11,
+          "text": "Built-in support for instant optimistic UI updates.",
+          "style": "caption",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_11.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_11.vtt"
+    },
+    {
+      "id": "scene_12",
+      "type": "outro",
+      "startTime": 168.67600000000002,
+      "duration": 12.428,
+      "narration": "If you want to master the future of React, make sure to like this video and subscribe for more modern web development tutorials. Let me know in the comments if you're ready to ditch useEffect!",
+      "visualDescription": "An engaging outro screen showing social links, a subscribe button pulsing, and a comment prompt asking viewers for their thoughts.",
+      "codeSnippet": null,
+      "language": null,
+      "cursorActions": [
+        {
+          "time": 4,
+          "action": "click",
+          "target": "Subscribe Button",
+          "x": 540,
+          "y": 1200,
+          "duration": 1
+        }
+      ],
+      "animations": [
+        {
+          "time": 3,
+          "type": "zoomIn",
+          "target": "Subscribe Button",
+          "value": "1.15",
+          "duration": 0.5
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Level Up Your Code!",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 4,
+          "text": "Hit subscribe for the best modern React tutorials.",
+          "style": "caption",
+          "position": "center"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_12.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_12.vtt"
     }
   ]
 }

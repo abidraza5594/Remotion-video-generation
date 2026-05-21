@@ -1,6 +1,6 @@
 {
   "fps": 30,
-  "totalFrames": 1832,
+  "totalFrames": 5433,
   "width": 1080,
   "height": 1920,
   "format": "shorts",
@@ -9,92 +9,197 @@
       "id": "scene_1",
       "type": "hook",
       "startFrame": 0,
-      "endFrame": 398,
-      "durationFrames": 398,
+      "endFrame": 407,
+      "durationFrames": 407,
       "cursorKeyframes": [
         {
-          "frame": 90,
-          "x": 540,
-          "y": 800,
-          "action": "highlight",
-          "target": "route: string"
+          "frame": 60,
+          "x": 270,
+          "y": 960,
+          "action": "move",
+          "target": "Messy React 18 code"
         },
         {
-          "frame": 210,
-          "x": 540,
-          "y": 1100,
-          "action": "zoom",
-          "target": "\"/api/v1/userz\""
+          "frame": 180,
+          "x": 810,
+          "y": 960,
+          "action": "move",
+          "target": "Clean React 19 code"
         }
       ]
     },
     {
       "id": "scene_2",
-      "type": "explanation",
-      "startFrame": 398,
-      "endFrame": 786,
-      "durationFrames": 388,
-      "cursorKeyframes": []
+      "type": "problem",
+      "startFrame": 407,
+      "endFrame": 904,
+      "durationFrames": 497,
+      "cursorKeyframes": [
+        {
+          "frame": 497,
+          "x": 540,
+          "y": 600,
+          "action": "highlight",
+          "target": "useState boilerplate"
+        }
+      ]
     },
     {
       "id": "scene_3",
-      "type": "code",
-      "startFrame": 786,
-      "endFrame": 1097,
-      "durationFrames": 311,
+      "type": "explanation",
+      "startFrame": 904,
+      "endFrame": 1422,
+      "durationFrames": 518,
       "cursorKeyframes": [
         {
-          "frame": 846,
-          "x": 480,
-          "y": 450,
+          "frame": 1024,
+          "x": 300,
+          "y": 960,
           "action": "move",
-          "target": "ApiRoute definition"
+          "target": "Client Form Node"
         },
         {
-          "frame": 1086,
-          "x": 480,
-          "y": 1200,
-          "action": "click",
-          "target": "secureFetch(\"api/users\") error"
+          "frame": 1144,
+          "x": 780,
+          "y": 960,
+          "action": "move",
+          "target": "Server Database Node"
         }
       ]
     },
     {
       "id": "scene_4",
       "type": "code",
-      "startFrame": 1097,
-      "endFrame": 1502,
-      "durationFrames": 405,
+      "startFrame": 1422,
+      "endFrame": 1875,
+      "durationFrames": 453,
       "cursorKeyframes": [
         {
-          "frame": 1187,
-          "x": 500,
-          "y": 380,
+          "frame": 1542,
+          "x": 540,
+          "y": 700,
           "action": "highlight",
-          "target": "Resource union"
-        },
-        {
-          "frame": 1457,
-          "x": 500,
-          "y": 1300,
-          "action": "move",
-          "target": "get(\"/api/users/abc\")"
+          "target": "preventDefault line"
         }
       ]
     },
     {
       "id": "scene_5",
-      "type": "demo",
-      "startFrame": 1502,
-      "endFrame": 1832,
-      "durationFrames": 330,
+      "type": "code",
+      "startFrame": 1875,
+      "endFrame": 2328,
+      "durationFrames": 453,
       "cursorKeyframes": [
         {
-          "frame": 1562,
+          "frame": 1965,
           "x": 540,
-          "y": 960,
+          "y": 300,
+          "action": "highlight",
+          "target": "'use server' directive"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "type": "code",
+      "startFrame": 2328,
+      "endFrame": 2774,
+      "durationFrames": 446,
+      "cursorKeyframes": [
+        {
+          "frame": 2478,
+          "x": 540,
+          "y": 800,
+          "action": "highlight",
+          "target": "form action attribute"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "type": "code",
+      "startFrame": 2774,
+      "endFrame": 3193,
+      "durationFrames": 419,
+      "cursorKeyframes": [
+        {
+          "frame": 2924,
+          "x": 540,
+          "y": 650,
+          "action": "highlight",
+          "target": "useActionState hook call"
+        }
+      ]
+    },
+    {
+      "id": "scene_8",
+      "type": "code",
+      "startFrame": 3193,
+      "endFrame": 3585,
+      "durationFrames": 392,
+      "cursorKeyframes": [
+        {
+          "frame": 3313,
+          "x": 540,
+          "y": 600,
+          "action": "highlight",
+          "target": "useFormStatus hook destructuring"
+        }
+      ]
+    },
+    {
+      "id": "scene_9",
+      "type": "code",
+      "startFrame": 3585,
+      "endFrame": 4024,
+      "durationFrames": 439,
+      "cursorKeyframes": [
+        {
+          "frame": 3735,
+          "x": 540,
+          "y": 600,
+          "action": "highlight",
+          "target": "useOptimistic hook call"
+        }
+      ]
+    },
+    {
+      "id": "scene_10",
+      "type": "demo",
+      "startFrame": 4024,
+      "endFrame": 4475,
+      "durationFrames": 451,
+      "cursorKeyframes": [
+        {
+          "frame": 4114,
+          "x": 300,
+          "y": 1100,
           "action": "click",
-          "target": "Autocomplete list item"
+          "target": "Submit Button"
+        }
+      ]
+    },
+    {
+      "id": "scene_11",
+      "type": "summary",
+      "startFrame": 4475,
+      "endFrame": 5060,
+      "durationFrames": 585,
+      "cursorKeyframes": []
+    },
+    {
+      "id": "scene_12",
+      "type": "outro",
+      "startFrame": 5060,
+      "endFrame": 5433,
+      "durationFrames": 373,
+      "cursorKeyframes": [
+        {
+          "frame": 5180,
+          "x": 540,
+          "y": 1200,
+          "action": "click",
+          "target": "Subscribe Button"
         }
       ]
     }
