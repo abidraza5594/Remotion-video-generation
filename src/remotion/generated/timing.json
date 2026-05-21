@@ -1,6 +1,6 @@
 {
   "fps": 30,
-  "totalFrames": 5433,
+  "totalFrames": 4117,
   "width": 1080,
   "height": 1920,
   "format": "shorts",
@@ -9,197 +9,172 @@
       "id": "scene_1",
       "type": "hook",
       "startFrame": 0,
-      "endFrame": 407,
-      "durationFrames": 407,
+      "endFrame": 320,
+      "durationFrames": 320,
       "cursorKeyframes": [
         {
           "frame": 60,
-          "x": 270,
+          "x": 540,
           "y": 960,
           "action": "move",
-          "target": "Messy React 18 code"
-        },
-        {
-          "frame": 180,
-          "x": 810,
-          "y": 960,
-          "action": "move",
-          "target": "Clean React 19 code"
+          "target": "broken-route-string"
         }
       ]
     },
     {
       "id": "scene_2",
       "type": "problem",
-      "startFrame": 407,
-      "endFrame": 904,
-      "durationFrames": 497,
+      "startFrame": 320,
+      "endFrame": 699,
+      "durationFrames": 379,
       "cursorKeyframes": [
         {
-          "frame": 497,
-          "x": 540,
-          "y": 600,
+          "frame": 440,
+          "x": 310,
+          "y": 420,
           "action": "highlight",
-          "target": "useState boilerplate"
+          "target": "string-type"
+        },
+        {
+          "frame": 560,
+          "x": 420,
+          "y": 850,
+          "action": "move",
+          "target": "typo-route"
         }
       ]
     },
     {
       "id": "scene_3",
       "type": "explanation",
-      "startFrame": 904,
-      "endFrame": 1422,
-      "durationFrames": 518,
+      "startFrame": 699,
+      "endFrame": 1071,
+      "durationFrames": 372,
       "cursorKeyframes": [
         {
-          "frame": 1024,
-          "x": 300,
-          "y": 960,
+          "frame": 789,
+          "x": 520,
+          "y": 380,
           "action": "move",
-          "target": "Client Form Node"
-        },
-        {
-          "frame": 1144,
-          "x": 780,
-          "y": 960,
-          "action": "move",
-          "target": "Server Database Node"
+          "target": "template-literal-definition"
         }
       ]
     },
     {
       "id": "scene_4",
       "type": "code",
-      "startFrame": 1422,
-      "endFrame": 1875,
-      "durationFrames": 453,
+      "startFrame": 1071,
+      "endFrame": 1481,
+      "durationFrames": 410,
       "cursorKeyframes": [
         {
-          "frame": 1542,
-          "x": 540,
-          "y": 700,
+          "frame": 1191,
+          "x": 680,
+          "y": 420,
           "action": "highlight",
-          "target": "preventDefault line"
+          "target": "infer-syntax"
+        },
+        {
+          "frame": 1371,
+          "x": 610,
+          "y": 510,
+          "action": "move",
+          "target": "recursive-call"
         }
       ]
     },
     {
       "id": "scene_5",
-      "type": "code",
-      "startFrame": 1875,
-      "endFrame": 2328,
-      "durationFrames": 453,
-      "cursorKeyframes": [
-        {
-          "frame": 1965,
-          "x": 540,
-          "y": 300,
-          "action": "highlight",
-          "target": "'use server' directive"
-        }
-      ]
+      "type": "explanation",
+      "startFrame": 1481,
+      "endFrame": 1893,
+      "durationFrames": 412,
+      "cursorKeyframes": []
     },
     {
       "id": "scene_6",
       "type": "code",
-      "startFrame": 2328,
-      "endFrame": 2774,
-      "durationFrames": 446,
+      "startFrame": 1893,
+      "endFrame": 2285,
+      "durationFrames": 392,
       "cursorKeyframes": [
         {
-          "frame": 2478,
-          "x": 540,
-          "y": 800,
+          "frame": 1983,
+          "x": 380,
+          "y": 420,
           "action": "highlight",
-          "target": "form action attribute"
+          "target": "const-generic"
+        },
+        {
+          "frame": 2163,
+          "x": 420,
+          "y": 610,
+          "action": "move",
+          "target": "params-argument"
         }
       ]
     },
     {
       "id": "scene_7",
-      "type": "code",
-      "startFrame": 2774,
-      "endFrame": 3193,
-      "durationFrames": 419,
+      "type": "demo",
+      "startFrame": 2285,
+      "endFrame": 2649,
+      "durationFrames": 364,
       "cursorKeyframes": [
         {
-          "frame": 2924,
-          "x": 540,
-          "y": 650,
-          "action": "highlight",
-          "target": "useActionState hook call"
+          "frame": 2435,
+          "x": 450,
+          "y": 800,
+          "action": "click",
+          "target": "autocomplete-popup"
         }
       ]
     },
     {
       "id": "scene_8",
       "type": "code",
-      "startFrame": 3193,
-      "endFrame": 3585,
-      "durationFrames": 392,
+      "startFrame": 2649,
+      "endFrame": 2992,
+      "durationFrames": 343,
       "cursorKeyframes": [
         {
-          "frame": 3313,
-          "x": 540,
-          "y": 600,
-          "action": "highlight",
-          "target": "useFormStatus hook destructuring"
+          "frame": 2829,
+          "x": 380,
+          "y": 750,
+          "action": "move",
+          "target": "error-squiggly"
         }
       ]
     },
     {
       "id": "scene_9",
-      "type": "code",
-      "startFrame": 3585,
-      "endFrame": 4024,
-      "durationFrames": 439,
-      "cursorKeyframes": [
-        {
-          "frame": 3735,
-          "x": 540,
-          "y": 600,
-          "action": "highlight",
-          "target": "useOptimistic hook call"
-        }
-      ]
-    },
-    {
-      "id": "scene_10",
-      "type": "demo",
-      "startFrame": 4024,
-      "endFrame": 4475,
-      "durationFrames": 451,
-      "cursorKeyframes": [
-        {
-          "frame": 4114,
-          "x": 300,
-          "y": 1100,
-          "action": "click",
-          "target": "Submit Button"
-        }
-      ]
-    },
-    {
-      "id": "scene_11",
-      "type": "summary",
-      "startFrame": 4475,
-      "endFrame": 5060,
-      "durationFrames": 585,
+      "type": "explanation",
+      "startFrame": 2992,
+      "endFrame": 3389,
+      "durationFrames": 397,
       "cursorKeyframes": []
     },
     {
-      "id": "scene_12",
+      "id": "scene_10",
+      "type": "summary",
+      "startFrame": 3389,
+      "endFrame": 3809,
+      "durationFrames": 420,
+      "cursorKeyframes": []
+    },
+    {
+      "id": "scene_11",
       "type": "outro",
-      "startFrame": 5060,
-      "endFrame": 5433,
-      "durationFrames": 373,
+      "startFrame": 3809,
+      "endFrame": 4117,
+      "durationFrames": 308,
       "cursorKeyframes": [
         {
-          "frame": 5180,
+          "frame": 3899,
           "x": 540,
           "y": 1200,
           "action": "click",
-          "target": "Subscribe Button"
+          "target": "subscribe-button"
         }
       ]
     }

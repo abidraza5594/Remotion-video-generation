@@ -14,6 +14,7 @@ interface SceneRouterProps {
   format: VideoFormat;
   storyTitle: string;
   branding?: Branding;
+  vttContent?: string;
 }
 
 function pickTransition(type: Scene['type'], format: VideoFormat): TransitionKind {
@@ -82,7 +83,7 @@ function bulletsForSummary(scene: Scene): string[] {
   return combined.slice(0, 6);
 }
 
-export const SceneRouter: React.FC<SceneRouterProps> = ({ scene, durationInFrames, format, storyTitle, branding }) => {
+export const SceneRouter: React.FC<SceneRouterProps> = ({ scene, durationInFrames, format, storyTitle, branding, vttContent }) => {
   const brand = branding || DEFAULT_BRANDING;
   const kind = pickTransition(scene.type, format);
   const inOutFrames = format === 'shorts' ? 8 : 12;
@@ -112,6 +113,7 @@ export const SceneRouter: React.FC<SceneRouterProps> = ({ scene, durationInFrame
           animations={scene.animations}
           format={format}
           narrationFallback={scene.narration}
+          subtitleContent={vttContent}
         />
       );
       break;

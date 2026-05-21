@@ -1,56 +1,48 @@
 {
-  "title": "React 19 Server Actions: Say Goodbye to useEffect for Form Submissions",
-  "topic": "React 19 Server Actions: Say Goodbye to useEffect for Form Submissions",
+  "title": "Mastering TypeScript 5.x Template Literal Types for Type-Safe API Routing",
+  "topic": "Mastering TypeScript 5.x Template Literal Types for Type-Safe API Routing",
   "format": "shorts",
-  "totalDuration": 181.104,
+  "totalDuration": 137.26000000000002,
   "fps": 30,
   "scenes": [
     {
       "id": "scene_1",
       "type": "hook",
       "startTime": 0,
-      "duration": 13.58,
-      "narration": "Are you still writing endless useEffect hooks and useState variables just to submit a simple form in React? Stop doing that right now because React 19 completely changes the game with Server Actions.",
-      "visualDescription": "A split screen showing messy, crossed-out React 18 form code on the left, and clean React 19 Server Action form code on the right with a green checkmark.",
+      "duration": 10.676,
+      "narration": "Are you still debugging broken API routes at runtime? Stop using plain strings and let TypeScript catch routing typos before they ever hit production.",
+      "visualDescription": "A dramatic zoom-in on a VS Code editor showing a broken route string highlighting in red. The background is a dark, cinematic terminal aesthetic.",
       "codeSnippet": null,
       "language": null,
       "cursorActions": [
         {
           "time": 2,
           "action": "move",
-          "target": "Messy React 18 code",
-          "x": 270,
-          "y": 960,
-          "duration": 1
-        },
-        {
-          "time": 6,
-          "action": "move",
-          "target": "Clean React 19 code",
-          "x": 810,
+          "target": "broken-route-string",
+          "x": 540,
           "y": 960,
           "duration": 1
         }
       ],
       "animations": [
         {
-          "time": 3,
+          "time": 0,
           "type": "zoomIn",
-          "target": "Messy React 18 code",
-          "value": "1.2",
-          "duration": 1
+          "target": "editor",
+          "value": null,
+          "duration": 2
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Ditch useEffect Today!",
+          "text": "Stop Broken API Routes",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "React 19 Server Actions completely eliminate boilerplate form submission state.",
+          "time": 3,
+          "text": "Runtime routing bugs are completely preventable in modern TypeScript apps.",
           "style": "caption",
           "position": "bottom"
         }
@@ -61,47 +53,62 @@
     {
       "id": "scene_2",
       "type": "problem",
-      "startTime": 13.58,
-      "duration": 16.58,
-      "narration": "Before React 19, handling forms meant writing manual event handlers, preventing default behavior, managing loading states, and handling errors. Your components quickly became bloated with repetitive boilerplate code that was hard to maintain.",
-      "visualDescription": "A code editor view zooming into a massive React component filled with state hooks and handle submit functions, highlighting the sheer volume of code.",
-      "codeSnippet": null,
-      "language": null,
+      "startTime": 10.676,
+      "duration": 12.644,
+      "narration": "Look at this standard API utility. It accepts any string, meaning a simple spelling mistake like 'usrs' instead of 'users' compiles perfectly but crashes your application at runtime.",
+      "visualDescription": "VS Code editor window highlighting a classic string-based router function and a typo in the function call.",
+      "codeSnippet": "function fetchApi(route: string) {\n  return fetch(`https://api.com${route}`);\n}\n\n// Typo goes completely unnoticed by the compiler!\nfetchApi(\"/api/usrs/:id\");",
+      "language": "typescript",
       "cursorActions": [
         {
-          "time": 3,
+          "time": 4,
           "action": "highlight",
-          "target": "useState boilerplate",
-          "x": 540,
-          "y": 600,
-          "duration": 2
+          "target": "string-type",
+          "x": 310,
+          "y": 420,
+          "duration": 1.5
+        },
+        {
+          "time": 8,
+          "action": "move",
+          "target": "typo-route",
+          "x": 420,
+          "y": 850,
+          "duration": 1
         }
       ],
       "animations": [
         {
-          "time": 1,
-          "type": "fadeIn",
-          "target": "Code Editor",
-          "value": null,
-          "duration": 1
+          "time": 4,
+          "type": "highlightLine",
+          "target": "code",
+          "value": "1",
+          "duration": 2
+        },
+        {
+          "time": 8,
+          "type": "highlightLine",
+          "target": "code",
+          "value": "5",
+          "duration": 2
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "The Boilerplate Nightmare",
+          "text": "The Danger of Loose Strings",
           "style": "headline",
           "position": "top"
         },
         {
           "time": 3,
-          "text": "Handling loading, error, and success states manually requires dozens of lines.",
+          "text": "Accepting any string type defeats the purpose of compile-time safety.",
           "style": "caption",
-          "position": "center"
+          "position": "bottom"
         },
         {
           "time": 7,
-          "text": "Preventing default event behavior is an unnecessary step in modern apps.",
+          "text": "A simple typo will compile successfully but break your production database queries.",
           "style": "caption",
           "position": "bottom"
         }
@@ -112,55 +119,47 @@
     {
       "id": "scene_3",
       "type": "explanation",
-      "startTime": 30.159999999999997,
-      "duration": 17.252,
-      "narration": "React 19 Server Actions allow you to pass asynchronous functions directly to HTML form elements. This means your client-side form can trigger secure, server-side code without manually setting up API endpoints or managing loading states.",
-      "visualDescription": "An elegant interactive architecture diagram showing a client-side form sending a direct action to a server-side database with zero intermediate API boilerplate.",
-      "codeSnippet": null,
-      "language": null,
+      "startTime": 23.32,
+      "duration": 12.404,
+      "narration": "To solve this, we can leverage Template Literal Types. They allow us to define exact string patterns, forcing the compiler to validate the structure of our API endpoints.",
+      "visualDescription": "Motion graphics showing how a template literal type acts as a strict pattern matcher for strings.",
+      "codeSnippet": "type ApiRoute = `/api/${string}`;\n\nconst valid: ApiRoute = \"/api/users\";\n// @ts-expect-error: Must start with /api/\nconst invalid: ApiRoute = \"/users\";",
+      "language": "typescript",
       "cursorActions": [
         {
-          "time": 4,
+          "time": 3,
           "action": "move",
-          "target": "Client Form Node",
-          "x": 300,
-          "y": 960,
-          "duration": 1
-        },
-        {
-          "time": 8,
-          "action": "move",
-          "target": "Server Database Node",
-          "x": 780,
-          "y": 960,
+          "target": "template-literal-definition",
+          "x": 520,
+          "y": 380,
           "duration": 1
         }
       ],
       "animations": [
         {
-          "time": 2,
-          "type": "slideIn",
-          "target": "Client Form Node",
-          "value": null,
-          "duration": 1
+          "time": 3,
+          "type": "highlightLine",
+          "target": "code",
+          "value": "1",
+          "duration": 1.5
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Direct Server Execution",
+          "text": "Template Literal Type Power",
           "style": "headline",
           "position": "top"
         },
         {
           "time": 3,
-          "text": "Pass async functions directly into native HTML action attributes.",
+          "text": "Template literal types let you define precise rules for string shapes.",
           "style": "caption",
-          "position": "center"
+          "position": "bottom"
         },
         {
           "time": 7,
-          "text": "No manual API routes required to bridge client and server.",
+          "text": "The compiler actively rejects any values that mismatch your defined pattern.",
           "style": "caption",
           "position": "bottom"
         }
@@ -171,48 +170,62 @@
     {
       "id": "scene_4",
       "type": "code",
-      "startTime": 47.41199999999999,
-      "duration": 15.092,
-      "narration": "Let's look at the old way of doing things. We had to prevent the default submit action, manage loading states manually, and fetch from an API route. It's a lot of moving parts just to save a single input value.",
-      "visualDescription": "A code editor exhibiting classic React 18 form logic with manual state handling and client-side fetch calls.",
-      "codeSnippet": "function OldForm() {\n  const [loading, setLoading] = useState(false);\n  const handleSubmit = async (e) => {\n    e.preventDefault();\n    setLoading(true);\n    await fetch('/api/submit', {\n      method: 'POST',\n      body: new FormData(e.target)\n    });\n    setLoading(false);\n  };\n  return <form onSubmit={handleSubmit}>...</form>;\n}",
-      "language": "javascript",
+      "startTime": 35.724000000000004,
+      "duration": 13.676,
+      "narration": "Now let's build a parser. We can write a recursive type utility that extracts path parameters prefixed with a colon. It splits the route string step-by-step using template interpolation.",
+      "visualDescription": "The editor displays a recursive TypeScript utility type. The cursor highlights the conditional infer statements.",
+      "codeSnippet": "type ExtractParams<T extends string> =\n  T extends `${string}/:${infer Param}/${infer Rest}`\n    ? { [K in Param | keyof ExtractParams<Rest>]: string }\n    : T extends `${string}/:${infer Param}`\n    ? { [K in Param]: string }\n    : {};",
+      "language": "typescript",
       "cursorActions": [
         {
           "time": 4,
           "action": "highlight",
-          "target": "preventDefault line",
-          "x": 540,
-          "y": 700,
+          "target": "infer-syntax",
+          "x": 680,
+          "y": 420,
+          "duration": 2
+        },
+        {
+          "time": 10,
+          "action": "move",
+          "target": "recursive-call",
+          "x": 610,
+          "y": 510,
           "duration": 1.5
         }
       ],
       "animations": [
         {
-          "time": 1,
-          "type": "typeCode",
-          "target": "codeEditor",
-          "value": null,
-          "duration": 3
+          "time": 4,
+          "type": "highlightLine",
+          "target": "code",
+          "value": "2",
+          "duration": 2
         },
         {
-          "time": 5,
+          "time": 10,
           "type": "highlightLine",
-          "target": "codeEditor",
-          "value": "4",
-          "duration": 1
+          "target": "code",
+          "value": "3",
+          "duration": 2
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "The Legacy React 18 Way",
+          "text": "Parsing Dynamic Path Parameters",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "Manual fetch requests require explicit error and loading state variables.",
+          "time": 3,
+          "text": "We use conditional types and the infer keyword to extract dynamic keys.",
+          "style": "caption",
+          "position": "bottom"
+        },
+        {
+          "time": 8,
+          "text": "The utility recursively processes nested routes to build our parameter object map.",
           "style": "caption",
           "position": "bottom"
         }
@@ -222,49 +235,39 @@
     },
     {
       "id": "scene_5",
-      "type": "code",
-      "startTime": 62.50399999999999,
-      "duration": 15.092,
-      "narration": "Now, look at how simple this is with React 19. We define an asynchronous function with the 'use server' directive at the top. This function runs securely on the server, directly receiving the form data object.",
-      "visualDescription": "Code editor displaying a simple server action function that directly accesses form data and interacts with a database.",
-      "codeSnippet": "// actions.js\n'use server';\n\nexport async function submitData(formData) {\n  const email = formData.get('email');\n  await db.users.create({ email });\n  return { success: true };\n}",
-      "language": "javascript",
-      "cursorActions": [
-        {
-          "time": 3,
-          "action": "highlight",
-          "target": "'use server' directive",
-          "x": 540,
-          "y": 300,
-          "duration": 1
-        }
-      ],
+      "type": "explanation",
+      "startTime": 49.400000000000006,
+      "duration": 13.724,
+      "narration": "With TypeScript 5.0, we can use 'const' type parameters. This tells the compiler to automatically infer the literal string type of the path without requiring developers to manually write 'as const'.",
+      "visualDescription": "Graphic showing the difference between TypeScript 4.x inference and 5.x const type parameters on a function definition.",
+      "codeSnippet": null,
+      "language": null,
+      "cursorActions": [],
       "animations": [
         {
-          "time": 1,
-          "type": "typeCode",
-          "target": "codeEditor",
+          "time": 0,
+          "type": "fadeIn",
+          "target": "graphic",
           "value": null,
-          "duration": 3
-        },
-        {
-          "time": 4,
-          "type": "highlightLine",
-          "target": "codeEditor",
-          "value": "2",
           "duration": 1
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Defining Server Actions",
+          "text": "TypeScript 5.x Const Modifiers",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "The 'use server' directive marks the boundary for secure server execution.",
+          "time": 3,
+          "text": "Const modifiers on generic type parameters preserve the literal type automatically.",
+          "style": "caption",
+          "position": "bottom"
+        },
+        {
+          "time": 7,
+          "text": "No more verbose 'as const' assertions are needed at your call sites.",
           "style": "caption",
           "position": "bottom"
         }
@@ -275,48 +278,62 @@
     {
       "id": "scene_6",
       "type": "code",
-      "startTime": 77.59599999999999,
-      "duration": 14.852,
-      "narration": "To connect this server action to our UI, we simply pass it to the action attribute of the form element. React automatically handles the submission event, extracts the form data, and triggers our server action seamlessly.",
-      "visualDescription": "Code editor showing a clean React 19 component that imports the server action and passes it to the form action attribute.",
-      "codeSnippet": "import { submitData } from './actions';\n\nfunction NewForm() {\n  return (\n    <form action={submitData}>\n      <input name=\"email\" type=\"email\" />\n      <button type=\"submit\">Submit</button>\n    </form>\n  );\n}",
-      "language": "javascript",
+      "startTime": 63.12400000000001,
+      "duration": 13.052,
+      "narration": "Let's apply this power to a custom fetch client. We declare a generic function where the path parameter is marked with the 'const' modifier, locking down the exact structure of our required params.",
+      "visualDescription": "Code block showing the definition of a generic fetch function utilizing the previously created ExtractParams utility.",
+      "codeSnippet": "async function safeFetch<\n  const Path extends string\n>(\n  path: Path,\n  params: ExtractParams<Path>\n) {\n  // Implementation goes here\n  return fetch(path); \n}",
+      "language": "typescript",
       "cursorActions": [
         {
-          "time": 5,
+          "time": 3,
           "action": "highlight",
-          "target": "form action attribute",
-          "x": 540,
-          "y": 800,
+          "target": "const-generic",
+          "x": 380,
+          "y": 420,
+          "duration": 1.5
+        },
+        {
+          "time": 9,
+          "action": "move",
+          "target": "params-argument",
+          "x": 420,
+          "y": 610,
           "duration": 1.5
         }
       ],
       "animations": [
         {
-          "time": 1,
-          "type": "typeCode",
-          "target": "codeEditor",
-          "value": null,
-          "duration": 3
+          "time": 3,
+          "type": "highlightLine",
+          "target": "code",
+          "value": "2",
+          "duration": 2
         },
         {
-          "time": 6,
+          "time": 9,
           "type": "highlightLine",
-          "target": "codeEditor",
+          "target": "code",
           "value": "5",
-          "duration": 1
+          "duration": 2
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Seamless Form Binding",
+          "text": "The Type-Safe Fetch Client",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "Pass your server action directly to the action prop of the form.",
+          "time": 3,
+          "text": "We combine const generics and ExtractParams to enforce matching inputs.",
+          "style": "caption",
+          "position": "bottom"
+        },
+        {
+          "time": 8,
+          "text": "The params argument dynamically shapes itself according to the path structure.",
           "style": "caption",
           "position": "bottom"
         }
@@ -326,49 +343,48 @@
     },
     {
       "id": "scene_7",
-      "type": "code",
-      "startTime": 92.448,
-      "duration": 13.964,
-      "narration": "But how do we handle server responses and loading states? React 19 introduces the useActionState hook, which tracks the action's pending status and returns the latest form state returned from the server.",
-      "visualDescription": "Code editor showing the useActionState hook being destructured to get the form state, action trigger, and pending boolean.",
-      "codeSnippet": "import { useActionState } from 'react';\nimport { submitData } from './actions';\n\nfunction Form() {\n  const [state, action, isPending] = useActionState(submitData, null);\n  return (\n    <form action={action}>\n      <input name=\"email\" type=\"email\" />\n      <button disabled={isPending}>Submit</button>\n    </form>\n  );\n}",
-      "language": "javascript",
+      "type": "demo",
+      "startTime": 76.17600000000002,
+      "duration": 12.14,
+      "narration": "Watch the magic in action. When we write a path with two parameters, TypeScript immediately knows exactly which keys are required and autocompletes them inside our arguments.",
+      "visualDescription": "A live recording of VS Code showing autocompletion popup listing 'userId' and 'postId' keys when typing the params object.",
+      "codeSnippet": "safeFetch(\n  \"/api/users/:userId/posts/:postId\",\n  {\n    userId: \"12\",\n    postId: \"45\"\n  }\n);",
+      "language": "typescript",
       "cursorActions": [
         {
           "time": 5,
-          "action": "highlight",
-          "target": "useActionState hook call",
-          "x": 540,
-          "y": 650,
-          "duration": 1.5
+          "action": "click",
+          "target": "autocomplete-popup",
+          "x": 450,
+          "y": 800,
+          "duration": 1
         }
       ],
       "animations": [
         {
-          "time": 1,
-          "type": "typeCode",
-          "target": "codeEditor",
-          "value": null,
-          "duration": 3
-        },
-        {
-          "time": 6,
+          "time": 4,
           "type": "highlightLine",
-          "target": "codeEditor",
-          "value": "5",
-          "duration": 1
+          "target": "code",
+          "value": "4",
+          "duration": 2
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Managing Action State",
+          "text": "Flawless Parameter Autocomplete",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "Use useActionState to easily track loading states and server responses.",
+          "time": 3,
+          "text": "The compiler reads your route template and generates accurate parameter types.",
+          "style": "caption",
+          "position": "bottom"
+        },
+        {
+          "time": 8,
+          "text": "Intellisense guides your developers with zero runtime configuration overhead.",
           "style": "caption",
           "position": "bottom"
         }
@@ -379,48 +395,47 @@
     {
       "id": "scene_8",
       "type": "code",
-      "startTime": 106.41199999999999,
-      "duration": 13.076,
-      "narration": "If you have nested button components, you don't even need to pass the loading state down as a prop. The useFormStatus hook lets child components access the parent form's pending status directly.",
-      "visualDescription": "Code editor showing a nested SubmitButton component using useFormStatus to disable itself during active submissions.",
-      "codeSnippet": "import { useFormStatus } from 'react-dom';\n\nfunction SubmitButton() {\n  const { pending } = useFormStatus();\n  return (\n    <button type=\"submit\" disabled={pending}>\n      {pending ? 'Submitting...' : 'Submit'}\n    </button>\n  );\n}",
-      "language": "javascript",
+      "startTime": 88.31600000000002,
+      "duration": 11.444,
+      "narration": "What if you make a typo or miss a required parameter? TypeScript will immediately throw a clear compiler error, pointing out exactly what is missing or misspelled.",
+      "visualDescription": "VS Code screen showing a red squiggly line under an incomplete params object, with the hover tool-tip error visible.",
+      "codeSnippet": "safeFetch(\n  \"/api/users/:userId/posts/:postId\",\n  {\n    userId: \"12\"\n    // Error: Property 'postId' is missing!\n  }\n);",
+      "language": "typescript",
       "cursorActions": [
         {
-          "time": 4,
-          "action": "highlight",
-          "target": "useFormStatus hook destructuring",
-          "x": 540,
-          "y": 600,
+          "time": 6,
+          "action": "move",
+          "target": "error-squiggly",
+          "x": 380,
+          "y": 750,
           "duration": 1.5
         }
       ],
       "animations": [
         {
-          "time": 1,
-          "type": "typeCode",
-          "target": "codeEditor",
-          "value": null,
-          "duration": 3
-        },
-        {
           "time": 5,
           "type": "highlightLine",
-          "target": "codeEditor",
-          "value": "4",
-          "duration": 1
+          "target": "code",
+          "value": "3",
+          "duration": 3
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "No More Prop Drilling",
+          "text": "Catching Errors Instantly",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "useFormStatus accesses the parent form context automatically from anywhere.",
+          "time": 3,
+          "text": "Missing key parameters triggers an immediate visual compilation error.",
+          "style": "caption",
+          "position": "bottom"
+        },
+        {
+          "time": 8,
+          "text": "You stop routing bugs at compile time instead of debugging them in production.",
           "style": "caption",
           "position": "bottom"
         }
@@ -430,49 +445,39 @@
     },
     {
       "id": "scene_9",
-      "type": "code",
-      "startTime": 119.488,
-      "duration": 14.636,
-      "narration": "For an ultra-responsive user experience, React 19 provides the useOptimistic hook. This allows you to immediately update the UI with the expected result while the server action is still processing in the background.",
-      "visualDescription": "Code editor showing useOptimistic hook updating a list immediately before the database write completes.",
-      "codeSnippet": "import { useOptimistic } from 'react';\n\nfunction List({ items }) {\n  const [optItems, setOpt] = useOptimistic(items, (state, newItem) => [\n    ...state, { text: newItem, sending: true }\n  ]);\n  // ... rest of component logic\n}",
-      "language": "javascript",
-      "cursorActions": [
-        {
-          "time": 5,
-          "action": "highlight",
-          "target": "useOptimistic hook call",
-          "x": 540,
-          "y": 600,
-          "duration": 1.5
-        }
-      ],
+      "type": "explanation",
+      "startTime": 99.76000000000002,
+      "duration": 13.22,
+      "narration": "This pattern is incredibly lightweight because it exists purely at the type level. Zero bytes are added to your runtime bundle, keeping your application blazing fast while maintaining ultimate safety.",
+      "visualDescription": "A beautiful graphic visual illustrating how types are stripped away during compilation, leaving zero overhead in the final JavaScript bundle.",
+      "codeSnippet": null,
+      "language": null,
+      "cursorActions": [],
       "animations": [
         {
-          "time": 1,
-          "type": "typeCode",
-          "target": "codeEditor",
+          "time": 0,
+          "type": "fadeIn",
+          "target": "bundle-size-graphic",
           "value": null,
-          "duration": 3
-        },
-        {
-          "time": 6,
-          "type": "highlightLine",
-          "target": "codeEditor",
-          "value": "4",
           "duration": 1
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Instant Optimistic Updates",
+          "text": "Zero Runtime Overhead",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "Update the UI instantly while the server action processes.",
+          "time": 3,
+          "text": "TypeScript types are completely erased during the build compilation process.",
+          "style": "caption",
+          "position": "bottom"
+        },
+        {
+          "time": 8,
+          "text": "Get bulletproof runtime safety without bloating your client-side JavaScript bundles.",
           "style": "caption",
           "position": "bottom"
         }
@@ -482,44 +487,53 @@
     },
     {
       "id": "scene_10",
-      "type": "demo",
-      "startTime": 134.124,
-      "duration": 15.044,
-      "narration": "Watch how fast and seamless this is in action. When we click submit, the UI updates instantly, the server processes the database write securely, and any errors are caught and handled gracefully without a single useEffect.",
-      "visualDescription": "A side-by-side demonstration showing the user interface form on the left submitting data, and the real-time database log updating on the right instantly.",
+      "type": "summary",
+      "startTime": 112.98000000000002,
+      "duration": 14.012,
+      "narration": "Let's summarize. We used Template Literal Types to match route shapes, built a dynamic recursive parser, and applied TS 5.x const parameters to eliminate runtime bugs entirely.",
+      "visualDescription": "A clean, modern list style graphic summarizing the key takeaways of the tutorial with checks.",
       "codeSnippet": null,
       "language": null,
-      "cursorActions": [
-        {
-          "time": 3,
-          "action": "click",
-          "target": "Submit Button",
-          "x": 300,
-          "y": 1100,
-          "duration": 0.5
-        }
-      ],
+      "cursorActions": [],
       "animations": [
         {
-          "time": 4,
-          "type": "zoomIn",
-          "target": "Database Log",
-          "value": "1.1",
-          "duration": 1
+          "time": 0,
+          "type": "slideIn",
+          "target": "summary-list",
+          "value": null,
+          "duration": 1.5
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Real-World Performance",
+          "text": "Mastering Type-Safe Routing",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 3,
-          "text": "Instant state transitions with flawless server integration.",
+          "time": 2,
+          "text": "1. Template literal types define strict pattern matching rules for URLs.",
           "style": "caption",
-          "position": "bottom"
+          "position": "center"
+        },
+        {
+          "time": 5,
+          "text": "2. Recursive conditional types automatically extract dynamic path parameters.",
+          "style": "caption",
+          "position": "center"
+        },
+        {
+          "time": 8,
+          "text": "3. TypeScript 5.x const parameters eliminate verbose as-const assertions.",
+          "style": "caption",
+          "position": "center"
+        },
+        {
+          "time": 11,
+          "text": "4. Complete compile-time safety is achieved with zero bundle-size overhead.",
+          "style": "caption",
+          "position": "center"
         }
       ],
       "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_10.mp3",
@@ -527,93 +541,18 @@
     },
     {
       "id": "scene_11",
-      "type": "summary",
-      "startTime": 149.168,
-      "duration": 19.508,
-      "narration": "React 19 Server Actions completely redefine how we build web applications. They eliminate the need for manual API routes, drastically reduce boilerplate code, and provide built-in state management for loading and optimistic updates. Form handling is finally simple.",
-      "visualDescription": "An elegant summary slide showing 4 key takeaways with clean checkmark bullet points appearing sequentially.",
-      "codeSnippet": null,
-      "language": null,
-      "cursorActions": [],
-      "animations": [
-        {
-          "time": 1,
-          "type": "fadeIn",
-          "target": "Takeaway 1",
-          "value": null,
-          "duration": 0.5
-        },
-        {
-          "time": 4,
-          "type": "fadeIn",
-          "target": "Takeaway 2",
-          "value": null,
-          "duration": 0.5
-        },
-        {
-          "time": 7,
-          "type": "fadeIn",
-          "target": "Takeaway 3",
-          "value": null,
-          "duration": 0.5
-        },
-        {
-          "time": 10,
-          "type": "fadeIn",
-          "target": "Takeaway 4",
-          "value": null,
-          "duration": 0.5
-        }
-      ],
-      "textOverlays": [
-        {
-          "time": 1,
-          "text": "Why Server Actions Win",
-          "style": "headline",
-          "position": "top"
-        },
-        {
-          "time": 2,
-          "text": "Zero manual API routes needed for secure backend integration.",
-          "style": "caption",
-          "position": "center"
-        },
-        {
-          "time": 5,
-          "text": "Automatic pending states with the new useActionState hook.",
-          "style": "caption",
-          "position": "center"
-        },
-        {
-          "time": 8,
-          "text": "No more useEffect or useState needed for basic forms.",
-          "style": "caption",
-          "position": "bottom"
-        },
-        {
-          "time": 11,
-          "text": "Built-in support for instant optimistic UI updates.",
-          "style": "caption",
-          "position": "bottom"
-        }
-      ],
-      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_11.mp3",
-      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_11.vtt"
-    },
-    {
-      "id": "scene_12",
       "type": "outro",
-      "startTime": 168.67600000000002,
-      "duration": 12.428,
-      "narration": "If you want to master the future of React, make sure to like this video and subscribe for more modern web development tutorials. Let me know in the comments if you're ready to ditch useEffect!",
-      "visualDescription": "An engaging outro screen showing social links, a subscribe button pulsing, and a comment prompt asking viewers for their thoughts.",
+      "startTime": 126.99200000000002,
+      "duration": 10.268,
+      "narration": "If you want to write cleaner, safer TypeScript code, make sure to subscribe and hit that like button. Drop a comment with your favorite type utility!",
+      "visualDescription": "A sleek closing screen with a subscribe button, channel logo, and a subtle code animation in the background.",
       "codeSnippet": null,
       "language": null,
       "cursorActions": [
         {
-          "time": 4,
+          "time": 3,
           "action": "click",
-          "target": "Subscribe Button",
+          "target": "subscribe-button",
           "x": 540,
           "y": 1200,
           "duration": 1
@@ -623,27 +562,27 @@
         {
           "time": 3,
           "type": "zoomIn",
-          "target": "Subscribe Button",
-          "value": "1.15",
+          "target": "subscribe-button",
+          "value": null,
           "duration": 0.5
         }
       ],
       "textOverlays": [
         {
           "time": 1,
-          "text": "Level Up Your Code!",
+          "text": "Level Up Your Code",
           "style": "headline",
           "position": "top"
         },
         {
-          "time": 4,
-          "text": "Hit subscribe for the best modern React tutorials.",
+          "time": 3,
+          "text": "Subscribe for more advanced, professional-grade TypeScript tutorials and tips.",
           "style": "caption",
-          "position": "center"
+          "position": "bottom"
         }
       ],
-      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_12.mp3",
-      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_12.vtt"
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_11.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_11.vtt"
     }
   ]
 }

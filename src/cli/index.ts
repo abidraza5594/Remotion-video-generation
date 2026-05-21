@@ -11,7 +11,7 @@ import {
   gatherStatus,
   renderStatusTable,
 } from '../auth/authManager';
-import { pickTopic, pickFormat, runPipeline, offerSocialUpload, cleanupTemp } from './orchestrator';
+import { pickTopic, pickFormat, runPipeline, offerSocialUpload, uploadLatestYouTube, cleanupTemp } from './orchestrator';
 import { removeAccount } from '../auth/tokenStore';
 import type { Platform } from '../types';
 
@@ -67,6 +67,14 @@ async function authSubcommand(target: string): Promise<void> {
   logger.error('Unknown --auth value: ' + target);
 }
 
+async function uploadSubcommand(target: string): Promise<void> {
+  if (target === 'youtube') {
+    await uploadLatestYouTube();
+    return;
+  }
+  logger.error('Unknown --upload value: ' + target);
+}
+
 async function main(): Promise<void> {
   ensureDirs();
 
@@ -80,6 +88,12 @@ async function main(): Promise<void> {
   const authArg = parseArg('auth');
   if (authArg) {
     await authSubcommand(authArg);
+    return;
+  }
+
+  const uploadArg = parseArg('upload');
+  if (uploadArg) {
+    await uploadSubcommand(uploadArg);
     return;
   }
 

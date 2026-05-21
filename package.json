@@ -11,6 +11,7 @@
     "auth:status": "node -r ts-node/register/transpile-only src/cli/index.ts --auth=status",
     "auth:logout": "node -r ts-node/register/transpile-only src/cli/index.ts --auth=logout",
     "auth:switch": "node -r ts-node/register/transpile-only src/cli/index.ts --auth=switch",
+    "upload:youtube": "node -r ts-node/register/transpile-only src/cli/index.ts --upload=youtube",
     "render:preview": "remotion preview src/remotion/index.ts",
     "render:mp4": "remotion render src/remotion/index.ts MainComposition out/video.mp4",
     "clean": "rimraf temp output"

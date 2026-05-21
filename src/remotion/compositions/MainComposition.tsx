@@ -41,6 +41,7 @@ export const MainComposition: React.FC<MainCompositionProps> = ({
               format={timing.format}
               storyTitle={storyboard.title}
               branding={brand}
+              vttContent={vttBySceneId[scene.id]}
             />
           </Sequence>
         );

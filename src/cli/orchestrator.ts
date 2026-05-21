@@ -1,6 +1,8 @@
 import inquirer from 'inquirer';
+import fs from 'fs';
+import path from 'path';
 import { logger } from '../utils/logger';
-import { ensureDirs, writeJSON, cleanTemp, PATHS } from '../utils/fileManager';
+import { ensureDirs, writeJSON, readJSON, cleanTemp, PATHS } from '../utils/fileManager';
 import { generateTopicSuggestions } from '../ai/topicGenerator';
 import { generateStoryboard } from '../ai/storyboardEngine';
 import { generateAllAudio } from '../tts/voiceGenerator';
@@ -13,6 +15,7 @@ import { uploadToInstagram } from '../social/instagramUploader';
 import { uploadToLinkedIn } from '../social/linkedinUploader';
 import { gatherStatus } from '../auth/authManager';
 import type { GenerationContext, TopicSuggestion, VideoFormat } from '../types';
+import type { Storyboard, YouTubeCopy } from '../types';
 
 export async function pickTopic(): Promise<{ topic: string; estimatedDuration: number; style?: string }> {
   const { mode } = await inquirer.prompt<{ mode: 'ai' | 'manual' }>([
@@ -209,6 +212,65 @@ export async function offerSocialUpload(ctx: GenerationContext): Promise<void> {
   }
 }
 
+export async function uploadLatestYouTube(): Promise<void> {
+  ensureDirs();
+
+  const videoPath = latestOutputFile(/^final_.*\.mp4$/i);
+  if (!videoPath) {
+    logger.error('No rendered MP4 found in output/. Generate a video first.');
+    return;
+  }
+
+  const storyboard = readJSON<Storyboard>(PATHS.storyboardFile);
+  if (!storyboard) {
+    logger.error('No storyboard found. Generate a video first so title/description can be built.');
+    return;
+  }
+
+  const thumbnailPath = latestOutputFile(/^thumbnail_.*\.jpg$/i) || undefined;
+  logger.info('Uploading latest MP4: ' + path.basename(videoPath));
+
+  try {
+    const chapters = chaptersFromStoryboard(storyboard.scenes);
+    const copy = await generateYouTubeCopy({
+      topic: storyboard.topic || storyboard.title,
+      durationSeconds: storyboard.totalDuration,
+      chapters,
+    }).catch(() => fallbackYouTubeCopy(storyboard, chapters));
+
+    logger.info(`Title: ${copy.title}`);
+    const res = await uploadToYouTube({
+      videoPath,
+      thumbnailPath,
+      copy,
+      format: storyboard.format,
+    });
+    logger.success(`YouTube live: ${res.url}`);
+  } catch (err: any) {
+    logger.error('YouTube upload failed: ' + err.message);
+  }
+}
+
+function latestOutputFile(pattern: RegExp): string | null {
+  if (!fs.existsSync(PATHS.output)) return null;
+  const matches = fs.readdirSync(PATHS.output)
+    .filter((name) => pattern.test(name))
+    .map((name) => path.join(PATHS.output, name))
+    .filter((file) => fs.statSync(file).isFile())
+    .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+  return matches[0] || null;
+}
+
+function fallbackYouTubeCopy(storyboard: Storyboard, chapters: YouTubeCopy['chapters']): YouTubeCopy {
+  return {
+    title: storyboard.title || storyboard.topic || 'Developer Tutorial',
+    description: storyboard.scenes.map((s) => s.narration).join('\n\n').slice(0, 1800),
+    chapters,
+    tags: [storyboard.topic || storyboard.title || 'developer tutorial', 'coding', 'tutorial'],
+    thumbnailText: storyboard.title || storyboard.topic || 'Tutorial',
+  };
+}
+
 export async function cleanupTemp(): Promise<void> {
   try {
     cleanTemp();
@@ -216,4 +278,3 @@ export async function cleanupTemp(): Promise<void> {
     /* ignore */
   }
 }
-

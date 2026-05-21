@@ -114,12 +114,11 @@ export const AnimatedCode: React.FC<AnimatedCodeProps> = ({
     }
   }
 
-  const cursorVisible = Math.floor(frame / (fps / 2)) % 2 === 0;
   const fadeIn = spring({ fps, frame, config: SPRING_SNAPPY, durationInFrames: 12 });
 
   const lineHeight = fontSize * 1.6;
   const highlightOffset = highlightLine != null
-    ? spring({ fps, frame, config: SPRING_SNAPPY, durationInFrames: 18 }) * ((highlightLine - 1) * lineHeight + 56)
+    ? (highlightLine - 1) * lineHeight
     : -9999;
 
   return (
@@ -211,19 +210,6 @@ export const AnimatedCode: React.FC<AnimatedCodeProps> = ({
               {line.map((tok, i) => (
                 <span key={i} style={{ color: tok.color }}>{tok.text}</span>
               ))}
-              {idx === visibleLines.length - 1 && charsToShow < totalChars && (
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: 2,
-                    height: fontSize,
-                    background: colors.textPrimary,
-                    marginLeft: 2,
-                    verticalAlign: 'text-bottom',
-                    opacity: cursorVisible ? 1 : 0,
-                  }}
-                />
-              )}
             </div>
           </div>
         ))}

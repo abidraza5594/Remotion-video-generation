@@ -21,43 +21,49 @@ export async function uploadToYouTube(opts: YouTubeUploadOptions): Promise<YouTu
   if (!fs.existsSync(opts.videoPath)) throw new Error(`Video not found: ${opts.videoPath}`);
 
   const oauth2 = await getAuthorizedYouTubeClient();
+  await oauth2.getAccessToken();
   const youtube = google.youtube({ version: 'v3', auth: oauth2 });
 
   const description = buildDescription(opts.copy, opts.format);
   const fileSize = fs.statSync(opts.videoPath).size;
 
   let lastPct = -1;
-  const res = await youtube.videos.insert(
-    {
-      part: ['snippet', 'status'],
-      requestBody: {
-        snippet: {
-          title: opts.copy.title.slice(0, 100),
-          description,
-          tags: opts.copy.tags,
-          categoryId: '28',
-          defaultLanguage: 'en',
-          defaultAudioLanguage: 'en',
+  let res;
+  try {
+    res = await youtube.videos.insert(
+      {
+        part: ['snippet', 'status'],
+        requestBody: {
+          snippet: {
+            title: opts.copy.title.slice(0, 100),
+            description,
+            tags: opts.copy.tags,
+            categoryId: '28',
+            defaultLanguage: 'en',
+            defaultAudioLanguage: 'en',
+          },
+          status: {
+            privacyStatus: opts.privacyStatus || 'public',
+            selfDeclaredMadeForKids: false,
+          },
         },
-        status: {
-          privacyStatus: opts.privacyStatus || 'public',
-          selfDeclaredMadeForKids: false,
+        media: {
+          body: fs.createReadStream(opts.videoPath),
         },
       },
-      media: {
-        body: fs.createReadStream(opts.videoPath),
+      {
+        onUploadProgress: (evt) => {
+          const pct = Math.round((evt.bytesRead / fileSize) * 100);
+          if (pct !== lastPct) {
+            lastPct = pct;
+            logger.progress('YouTube', pct, 100, `${(evt.bytesRead / 1048576).toFixed(1)}MB`);
+          }
+        },
       },
-    },
-    {
-      onUploadProgress: (evt) => {
-        const pct = Math.round((evt.bytesRead / fileSize) * 100);
-        if (pct !== lastPct) {
-          lastPct = pct;
-          logger.progress('YouTube', pct, 100, `${(evt.bytesRead / 1048576).toFixed(1)}MB`);
-        }
-      },
-    },
-  );
+    );
+  } catch (err: any) {
+    throw new Error(formatYouTubeError(err));
+  }
 
   const videoId = res.data.id;
   if (!videoId) throw new Error('YouTube upload returned no video ID.');
@@ -75,6 +81,27 @@ export async function uploadToYouTube(opts: YouTubeUploadOptions): Promise<YouTu
   }
 
   return { videoId, url: `https://youtu.be/${videoId}` };
+}
+
+function formatYouTubeError(err: any): string {
+  const status = err?.response?.status || err?.code;
+  const apiError = err?.response?.data?.error;
+  const reason = apiError?.errors?.[0]?.reason;
+  const message = apiError?.message || err?.message || String(err);
+
+  if (status === 401) {
+    return `${message}. YouTube token expired or was revoked. Run: npm run auth:youtube`;
+  }
+  if (status === 403 && reason === 'insufficientPermissions') {
+    return `${message}. Reconnect YouTube so the upload scope is granted: npm run auth:youtube`;
+  }
+  if (status === 403 && reason === 'quotaExceeded') {
+    return `${message}. Your YouTube Data API quota is exhausted for today.`;
+  }
+  if (status === 403 && reason === 'uploadLimitExceeded') {
+    return `${message}. This channel has hit YouTube's upload limit.`;
+  }
+  return reason ? `${message} (${reason})` : message;
 }
 
 function buildDescription(copy: YouTubeCopy, format: 'shorts' | 'long'): string {
