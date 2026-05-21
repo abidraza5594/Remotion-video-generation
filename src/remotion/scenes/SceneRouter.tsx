@@ -5,6 +5,7 @@ import { ExplanationScene } from './ExplanationScene';
 import { SummaryScene } from './SummaryScene';
 import { OutroScene } from './OutroScene';
 import { TransitionWrapper, TransitionKind } from '../components/TransitionWrapper';
+import { DEFAULT_BRANDING, Branding } from '../../utils/branding';
 import type { Scene, VideoFormat } from '../../types';
 
 interface SceneRouterProps {
@@ -12,6 +13,7 @@ interface SceneRouterProps {
   durationInFrames: number;
   format: VideoFormat;
   storyTitle: string;
+  branding?: Branding;
 }
 
 function pickTransition(type: Scene['type'], format: VideoFormat): TransitionKind {
@@ -34,12 +36,15 @@ function pointsFromOverlays(scene: Scene): string[] {
     .slice(0, 4);
 }
 
-export const SceneRouter: React.FC<SceneRouterProps> = ({ scene, durationInFrames, format, storyTitle }) => {
+export const SceneRouter: React.FC<SceneRouterProps> = ({ scene, durationInFrames, format, storyTitle, branding }) => {
+  const brand = branding || DEFAULT_BRANDING;
   const kind = pickTransition(scene.type, format);
   const inOutFrames = format === 'shorts' ? 8 : 12;
 
   let content: React.ReactNode;
-  switch (scene.type) {
+  const effectiveType = scene.type === 'outro' && !brand.outroEnabled ? 'explanation' : scene.type;
+
+  switch (effectiveType) {
     case 'hook':
       content = (
         <HookScene
@@ -74,7 +79,11 @@ export const SceneRouter: React.FC<SceneRouterProps> = ({ scene, durationInFrame
     case 'outro':
       content = (
         <OutroScene
-          ctaLine={scene.narration.length < 100 ? scene.narration : 'Follow for more developer tutorials.'}
+          channelName={brand.channelName}
+          ctaLine={brand.ctaLine || scene.narration}
+          subscribeText={brand.subscribeText}
+          showSubscribeButton={brand.showSubscribeButton}
+          handles={brand.handles}
         />
       );
       break;

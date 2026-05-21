@@ -3,6 +3,7 @@ import { AbsoluteFill, Sequence, Audio } from 'remotion';
 import { SceneRouter } from '../scenes/SceneRouter';
 import { CursorOverlay } from '../components/CursorOverlay';
 import { CaptionBar } from '../components/CaptionBar';
+import { DEFAULT_BRANDING, Branding } from '../../utils/branding';
 import type { Storyboard, TimingFile } from '../../types';
 
 interface MainCompositionProps {
@@ -10,6 +11,7 @@ interface MainCompositionProps {
   timing: TimingFile;
   audioSrc?: string;
   vttBySceneId?: Record<string, string>;
+  branding?: Branding;
 }
 
 export const MainComposition: React.FC<MainCompositionProps> = ({
@@ -17,8 +19,10 @@ export const MainComposition: React.FC<MainCompositionProps> = ({
   timing,
   audioSrc,
   vttBySceneId = {},
+  branding,
 }) => {
   const isShorts = timing.format === 'shorts';
+  const brand = branding || DEFAULT_BRANDING;
 
   return (
     <AbsoluteFill style={{ background: '#0D0D0D' }}>
@@ -37,6 +41,7 @@ export const MainComposition: React.FC<MainCompositionProps> = ({
               durationInFrames={entry.durationFrames}
               format={timing.format}
               storyTitle={storyboard.title}
+              branding={brand}
             />
           </Sequence>
         );

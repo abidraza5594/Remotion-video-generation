@@ -6,12 +6,16 @@ import { colors, fonts, radii } from '../design/tokens';
 interface OutroSceneProps {
   channelName?: string;
   ctaLine?: string;
+  subscribeText?: string;
+  showSubscribeButton?: boolean;
   handles?: string[];
 }
 
 export const OutroScene: React.FC<OutroSceneProps> = ({
-  channelName = 'Cinematic AI Studio',
-  ctaLine = 'Follow for more developer tutorials.',
+  channelName,
+  ctaLine,
+  subscribeText = 'Subscribe ▸',
+  showSubscribeButton = true,
   handles = [],
 }) => {
   const frame = useCurrentFrame();
@@ -25,53 +29,60 @@ export const OutroScene: React.FC<OutroSceneProps> = ({
     <AbsoluteFill>
       <AnimatedBackground variant="punch" />
       <AbsoluteFill style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, padding: 60 }}>
-        <div
-          style={{
-            fontFamily: fonts.display,
-            fontWeight: 900,
-            fontSize: width >= 1600 ? 96 : 64,
-            color: colors.textPrimary,
-            letterSpacing: '-0.04em',
-            opacity: channelSpring,
-            transform: `translateX(${interpolate(channelSpring, [0, 1], [-60, 0])}px)`,
-            textAlign: 'center',
-          }}
-        >
-          {channelName}
-        </div>
+        {channelName && (
+          <div
+            style={{
+              fontFamily: fonts.display,
+              fontWeight: 900,
+              fontSize: width >= 1600 ? 96 : 64,
+              color: colors.textPrimary,
+              letterSpacing: '-0.04em',
+              opacity: channelSpring,
+              transform: `translateX(${interpolate(channelSpring, [0, 1], [-60, 0])}px)`,
+              textAlign: 'center',
+            }}
+          >
+            {channelName}
+          </div>
+        )}
 
-        <div
-          style={{
-            padding: '20px 48px',
-            background: `linear-gradient(90deg, ${colors.accentPrimary}, ${colors.accentSecondary})`,
-            borderRadius: radii.pill,
-            fontFamily: fonts.display,
-            fontWeight: 800,
-            fontSize: 38,
-            color: colors.background,
-            opacity: ctaSpring,
-            transform: `scale(${interpolate(ctaSpring, [0, 1], [0.85, 1 + pulse * 0.03])})`,
-            boxShadow: `0 0 ${20 + pulse * 30}px rgba(0, 212, 255, 0.5)`,
-          }}
-        >
-          Subscribe ▸
-        </div>
+        {showSubscribeButton && (
+          <div
+            style={{
+              padding: '20px 48px',
+              background: `linear-gradient(90deg, ${colors.accentPrimary}, ${colors.accentSecondary})`,
+              borderRadius: radii.pill,
+              fontFamily: fonts.display,
+              fontWeight: 800,
+              fontSize: 38,
+              color: colors.background,
+              opacity: ctaSpring,
+              transform: `scale(${interpolate(ctaSpring, [0, 1], [0.85, 1 + pulse * 0.03])})`,
+              boxShadow: `0 0 ${20 + pulse * 30}px rgba(0, 212, 255, 0.5)`,
+            }}
+          >
+            {subscribeText}
+          </div>
+        )}
 
-        <p
-          style={{
-            fontFamily: fonts.body,
-            fontSize: 30,
-            color: colors.textSecondary,
-            margin: 0,
-            opacity: ctaSpring,
-            textAlign: 'center',
-          }}
-        >
-          {ctaLine}
-        </p>
+        {ctaLine && (
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 30,
+              color: colors.textSecondary,
+              margin: 0,
+              opacity: ctaSpring,
+              textAlign: 'center',
+              maxWidth: '85%',
+            }}
+          >
+            {ctaLine}
+          </p>
+        )}
 
         {handles.length > 0 && (
-          <div style={{ display: 'flex', gap: 20, marginTop: 16 }}>
+          <div style={{ display: 'flex', gap: 20, marginTop: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
             {handles.map((handle, i) => {
               const s = spring({ fps, frame: frame - 30 - i * 6, config: { damping: 18 }, durationInFrames: 18 });
               return (

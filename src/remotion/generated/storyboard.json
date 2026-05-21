@@ -1,25 +1,277 @@
 {
-  "title": "Cinematic AI Studio",
-  "topic": "Preview",
-  "format": "long",
-  "totalDuration": 6,
+  "title": "Mastering TypeScript Template Literal Types for Ultra-Safe API Routing",
+  "topic": "Mastering TypeScript Template Literal Types for Ultra-Safe API Routing",
+  "format": "shorts",
+  "totalDuration": 61.06,
   "fps": 30,
   "scenes": [
     {
-      "id": "placeholder",
+      "id": "scene_1",
       "type": "hook",
       "startTime": 0,
-      "duration": 6,
-      "narration": "Run npm run generate-video to create real content.",
-      "visualDescription": "",
+      "duration": 13.268,
+      "narration": "Are you still hardcoding API routes as loose strings? One tiny typo like 'userz' instead of 'users' and your app crashes in production. Let's fix this forever using TypeScript.",
+      "visualDescription": "A dark-themed VS Code window showing a broken fetch call with a red squiggly line under a misspelled API route. A simulated browser console next to it flashes a red '404 Not Found' error.",
+      "codeSnippet": "// ❌ The dangerous way\nfunction fetchUserData(route: string) {\n  return fetch(route);\n}\n\nfetchUserData(\"/api/v1/userz\"); // No error!",
+      "language": "typescript",
+      "cursorActions": [
+        {
+          "time": 3,
+          "action": "highlight",
+          "target": "route: string",
+          "x": 540,
+          "y": 800,
+          "duration": 1.5
+        },
+        {
+          "time": 7,
+          "action": "zoom",
+          "target": "\"/api/v1/userz\"",
+          "x": 540,
+          "y": 1100,
+          "duration": 1
+        }
+      ],
+      "animations": [
+        {
+          "time": 1,
+          "type": "fadeIn",
+          "target": "VS Code Editor",
+          "value": null,
+          "duration": 0.5
+        },
+        {
+          "time": 6,
+          "type": "highlightLine",
+          "target": "Line 6",
+          "value": "red",
+          "duration": 2
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Stop using loose strings!",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 6,
+          "text": "Easy typos = Silent crashes",
+          "style": "highlight",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_1.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_1.vtt"
+    },
+    {
+      "id": "scene_2",
+      "type": "explanation",
+      "startTime": 13.268,
+      "duration": 12.932,
+      "narration": "Instead of accepting any generic string, we can force TypeScript to validate the exact pattern of our endpoints using Template Literal Types. It's like regex, but purely in the type system.",
+      "visualDescription": "A beautiful motion graphic showing a string template schema morphing into a strict TypeScript type definition with glowing visual connectors.",
       "codeSnippet": null,
       "language": null,
       "cursorActions": [],
-      "animations": [],
+      "animations": [
+        {
+          "time": 2,
+          "type": "slideIn",
+          "target": "Type Schema Diagram",
+          "value": "center",
+          "duration": 1
+        }
+      ],
       "textOverlays": [
-        { "time": 0, "text": "Cinematic AI Studio", "style": "headline", "position": "center" },
-        { "time": 0, "text": "Preview composition — run the CLI to generate real videos.", "style": "caption", "position": "center" }
-      ]
+        {
+          "time": 1,
+          "text": "Template Literal Types",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 6,
+          "text": "Pattern matching for types",
+          "style": "caption",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_2.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_2.vtt"
+    },
+    {
+      "id": "scene_3",
+      "type": "code",
+      "startTime": 26.200000000000003,
+      "duration": 10.364,
+      "narration": "Let's build a dynamic route type. By using backticks inside our type definition, we can enforce that every route must start strictly with '/api/'.",
+      "visualDescription": "VS Code editor typing out a template literal type. The cursor blinks and types smoothly, highlighting the syntax as it goes.",
+      "codeSnippet": "type ApiRoute = `/api/${string}`;\n\nfunction secureFetch(route: ApiRoute) {\n  return fetch(route);\n}\n\n// ❌ Compiler Error!\nsecureFetch(\"api/users\");\n\n// ✅ Allowed!\nsecureFetch(\"/api/users\");",
+      "language": "typescript",
+      "cursorActions": [
+        {
+          "time": 2,
+          "action": "move",
+          "target": "ApiRoute definition",
+          "x": 480,
+          "y": 450,
+          "duration": 1
+        },
+        {
+          "time": 10,
+          "action": "click",
+          "target": "secureFetch(\"api/users\") error",
+          "x": 480,
+          "y": 1200,
+          "duration": 0.5
+        }
+      ],
+      "animations": [
+        {
+          "time": 0.5,
+          "type": "typeCode",
+          "target": "Editor",
+          "value": "type ApiRoute = `/api/${string}`;",
+          "duration": 4
+        },
+        {
+          "time": 9,
+          "type": "highlightLine",
+          "target": "Line 8",
+          "value": "red",
+          "duration": 1.5
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Enforcing the prefix",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 8,
+          "text": "Missing '/' caught instantly!",
+          "style": "highlight",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_3.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_3.vtt"
+    },
+    {
+      "id": "scene_4",
+      "type": "code",
+      "startTime": 36.56400000000001,
+      "duration": 13.508,
+      "narration": "We can take this even further. Let's restrict the route to specific resources like 'users' or 'posts', followed strictly by a numeric ID. Watch the compiler block invalid IDs.",
+      "visualDescription": "VS Code showing an advanced type definition. We see the compiler instantly flags a route with a non-numeric ID.",
+      "codeSnippet": "type Resource = \"users\" | \"posts\";\ntype StrictRoute = `/api/${Resource}/${number}`;\n\nfunction get(route: StrictRoute) {\n  return fetch(route);\n}\n\n// ❌ Error: 'abc' is not a number\nget(\"/api/users/abc\");\n\n// ✅ Perfect!\nget(\"/api/users/123\");",
+      "language": "typescript",
+      "cursorActions": [
+        {
+          "time": 3,
+          "action": "highlight",
+          "target": "Resource union",
+          "x": 500,
+          "y": 380,
+          "duration": 1
+        },
+        {
+          "time": 12,
+          "action": "move",
+          "target": "get(\"/api/users/abc\")",
+          "x": 500,
+          "y": 1300,
+          "duration": 1
+        }
+      ],
+      "animations": [
+        {
+          "time": 1,
+          "type": "typeCode",
+          "target": "Editor",
+          "value": "type StrictRoute = `/api/${Resource}/${number}`;",
+          "duration": 5
+        },
+        {
+          "time": 11,
+          "type": "zoomIn",
+          "target": "Error line",
+          "value": null,
+          "duration": 1
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Ultra-strict dynamic routing",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 11,
+          "text": "No more bad IDs!",
+          "style": "highlight",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_4.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_4.vtt"
+    },
+    {
+      "id": "scene_5",
+      "type": "demo",
+      "startTime": 50.072,
+      "duration": 10.988,
+      "narration": "Now, your IDE auto-completes correct endpoints and blocks bugs before they ever hit your git repo. Subscribe for more expert TypeScript tips!",
+      "visualDescription": "An interactive autocomplete popup list of valid routes appearing instantly in VS Code as the developer types 'get(\"'. The video ends with a clean subscribe animation overlay.",
+      "codeSnippet": "get(\"/api/users/456\"); // Autocomplete magic!",
+      "language": "typescript",
+      "cursorActions": [
+        {
+          "time": 2,
+          "action": "click",
+          "target": "Autocomplete list item",
+          "x": 540,
+          "y": 960,
+          "duration": 0.5
+        }
+      ],
+      "animations": [
+        {
+          "time": 1,
+          "type": "fadeIn",
+          "target": "Autocomplete Popup",
+          "value": null,
+          "duration": 0.3
+        },
+        {
+          "time": 8,
+          "type": "zoomOut",
+          "target": "Editor",
+          "value": null,
+          "duration": 1
+        }
+      ],
+      "textOverlays": [
+        {
+          "time": 1,
+          "text": "Zero-overhead type safety!",
+          "style": "headline",
+          "position": "top"
+        },
+        {
+          "time": 7,
+          "text": "Subscribe for more!",
+          "style": "highlight",
+          "position": "bottom"
+        }
+      ],
+      "audioFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\audio\\scene_scene_5.mp3",
+      "subtitleFile": "C:\\ABID\\REMOTION VIDEO GENERATION\\temp\\subs\\scene_scene_5.vtt"
     }
   ]
 }

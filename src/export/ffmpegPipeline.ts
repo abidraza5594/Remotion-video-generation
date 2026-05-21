@@ -6,6 +6,8 @@ import ffmpegStatic from 'ffmpeg-static';
 import ffmpeg from 'fluent-ffmpeg';
 import { PATHS, timestampString, fileSizeMB } from '../utils/fileManager';
 import { logger } from '../utils/logger';
+import { loadBranding } from '../utils/brandingLoader';
+import { Branding } from '../utils/branding';
 import type { Storyboard, TimingFile, VideoFormat } from '../types';
 
 if (ffmpegStatic) ffmpeg.setFfmpegPath(ffmpegStatic as unknown as string);
@@ -36,6 +38,17 @@ export async function renderAndExport(opts: RenderOptions): Promise<RenderResult
   const finalPath = path.join(PATHS.output, `final_${stamp}.mp4`);
   const thumbnailPath = path.join(PATHS.output, `thumbnail_${stamp}.jpg`);
 
+  const branding: Branding = loadBranding();
+  if (branding.channelName) logger.info(`Outro branding: ${branding.channelName}`);
+
+  const inputProps = {
+    storyboard: opts.storyboard,
+    timing: opts.timing,
+    audioSrc: undefined as string | undefined,
+    vttBySceneId: collectVtts(opts.storyboard),
+    branding,
+  };
+
   logger.step('Bundling Remotion project...');
   const bundleLocation = await bundle({
     entryPoint: ENTRY,
@@ -46,12 +59,7 @@ export async function renderAndExport(opts: RenderOptions): Promise<RenderResult
   const composition = await selectComposition({
     serveUrl: bundleLocation,
     id: 'MainComposition',
-    inputProps: {
-      storyboard: opts.storyboard,
-      timing: opts.timing,
-      audioSrc: undefined,
-      vttBySceneId: collectVtts(opts.storyboard),
-    },
+    inputProps,
   });
 
   logger.step(`Rendering ${composition.durationInFrames} frames at ${composition.fps}fps...`);
@@ -69,12 +77,7 @@ export async function renderAndExport(opts: RenderOptions): Promise<RenderResult
     codec: 'h264',
     crf: 18,
     outputLocation: noAudioPath,
-    inputProps: {
-      storyboard: opts.storyboard,
-      timing: opts.timing,
-      audioSrc: undefined,
-      vttBySceneId: collectVtts(opts.storyboard),
-    },
+    inputProps,
     onProgress: ({ progress }) => {
       const pct = Math.round(progress * 100);
       if (pct !== lastPct) {
@@ -90,7 +93,6 @@ export async function renderAndExport(opts: RenderOptions): Promise<RenderResult
   logger.step('Extracting thumbnail...');
   await extractThumbnail(finalPath, thumbnailPath);
 
-  const stats = fs.statSync(finalPath);
   const duration = opts.timing.totalFrames / opts.timing.fps;
 
   return {
@@ -114,16 +116,30 @@ function collectVtts(storyboard: Storyboard): Record<string, string> {
 
 function mergeAudioVideo(videoPath: string, audioPath: string, outputPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
+    if (!fs.existsSync(videoPath)) return reject(new Error(`Video file missing: ${videoPath}`));
+    if (!fs.existsSync(audioPath)) return reject(new Error(`Audio file missing: ${audioPath}`));
+
+    logger.info(`  video: ${path.basename(videoPath)} (${(fs.statSync(videoPath).size / 1048576).toFixed(1)} MB)`);
+    logger.info(`  audio: ${path.basename(audioPath)} (${(fs.statSync(audioPath).size / 1048576).toFixed(1)} MB)`);
+
+    let stderrTail = '';
     ffmpeg()
       .input(videoPath)
       .input(audioPath)
       .outputOptions([
-        '-c:v copy',
-        '-c:a aac',
-        '-b:a 192k',
+        '-map', '0:v:0',
+        '-map', '1:a:0',
+        '-c:v', 'copy',
+        '-c:a', 'aac',
+        '-b:a', '192k',
+        '-ar', '48000',
         '-shortest',
+        '-movflags', '+faststart',
       ])
-      .on('error', reject)
+      .on('stderr', (line) => {
+        stderrTail = (stderrTail + '\n' + line).slice(-2000);
+      })
+      .on('error', (err) => reject(new Error(`ffmpeg merge failed: ${err.message}\n${stderrTail}`)))
       .on('end', () => resolve())
       .save(outputPath);
   });

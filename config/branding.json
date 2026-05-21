@@ -1,0 +1,16 @@
+{
+  "channelName": "Abid Ansari",
+  "subscribeText": "Subscribe ▸",
+  "ctaLine": "",
+  "handles": [],
+  "showSubscribeButton": true,
+  "outroEnabled": true,
+  "_help": {
+    "channelName": "Your channel/brand name shown big in the outro. Leave empty (\"\") to hide.",
+    "subscribeText": "Text inside the gradient pill button. e.g. 'Subscribe ▸', 'Follow Me', 'Join Now'.",
+    "ctaLine": "Line shown below the button. Empty = uses the narration's last line instead.",
+    "handles": "Array of social handles shown as pills, e.g. ['@yourchannel', '@yourtwitter']. Empty array hides this row.",
+    "showSubscribeButton": "true/false — show the gradient subscribe pill.",
+    "outroEnabled": "true/false — render an outro scene at all. If false, outro scenes become explanation scenes."
+  }
+}

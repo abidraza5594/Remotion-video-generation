@@ -60,3 +60,14 @@ export function platformConfigured(platform: 'youtube' | 'instagram' | 'linkedin
 export function envFileExists(): boolean {
   return fs.existsSync(path.resolve(process.cwd(), '.env'));
 }
+
+export function hasAnyAIProvider(): boolean {
+  return !!(read('GEMINI_API_KEY', true) || read('MISTRAL_API_KEY', true));
+}
+
+export function aiProviderSummary(): string {
+  const parts: string[] = [];
+  if (read('GEMINI_API_KEY', true)) parts.push(`Gemini (${read('GEMINI_MODEL', true) || 'gemini-3.5-flash'})`);
+  if (read('MISTRAL_API_KEY', true)) parts.push(`Mistral (${read('MISTRAL_MODEL', true) || 'mistral-large-latest'})`);
+  return parts.length ? parts.join(' → fallback → ') : 'none configured';
+}

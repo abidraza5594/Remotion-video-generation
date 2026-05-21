@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import { logger } from '../utils/logger';
 import { ensureDirs, PATHS } from '../utils/fileManager';
-import { envFileExists, platformConfigured } from '../utils/configManager';
+import { envFileExists, platformConfigured, hasAnyAIProvider, aiProviderSummary } from '../utils/configManager';
 import {
   startupAuthCheck,
   connectFlow,
@@ -82,6 +82,12 @@ async function main(): Promise<void> {
     await authSubcommand(authArg);
     return;
   }
+
+  if (!hasAnyAIProvider()) {
+    logger.error('No AI provider configured. Set GEMINI_API_KEY or MISTRAL_API_KEY in .env');
+    process.exit(1);
+  }
+  logger.info(`AI provider: ${aiProviderSummary()}`);
 
   await startupAuthCheck();
 

@@ -1,17 +1,102 @@
 {
   "fps": 30,
-  "totalFrames": 180,
-  "width": 1920,
-  "height": 1080,
-  "format": "long",
+  "totalFrames": 1832,
+  "width": 1080,
+  "height": 1920,
+  "format": "shorts",
   "scenes": [
     {
-      "id": "placeholder",
+      "id": "scene_1",
       "type": "hook",
       "startFrame": 0,
-      "endFrame": 180,
-      "durationFrames": 180,
+      "endFrame": 398,
+      "durationFrames": 398,
+      "cursorKeyframes": [
+        {
+          "frame": 90,
+          "x": 540,
+          "y": 800,
+          "action": "highlight",
+          "target": "route: string"
+        },
+        {
+          "frame": 210,
+          "x": 540,
+          "y": 1100,
+          "action": "zoom",
+          "target": "\"/api/v1/userz\""
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "type": "explanation",
+      "startFrame": 398,
+      "endFrame": 786,
+      "durationFrames": 388,
       "cursorKeyframes": []
+    },
+    {
+      "id": "scene_3",
+      "type": "code",
+      "startFrame": 786,
+      "endFrame": 1097,
+      "durationFrames": 311,
+      "cursorKeyframes": [
+        {
+          "frame": 846,
+          "x": 480,
+          "y": 450,
+          "action": "move",
+          "target": "ApiRoute definition"
+        },
+        {
+          "frame": 1086,
+          "x": 480,
+          "y": 1200,
+          "action": "click",
+          "target": "secureFetch(\"api/users\") error"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "type": "code",
+      "startFrame": 1097,
+      "endFrame": 1502,
+      "durationFrames": 405,
+      "cursorKeyframes": [
+        {
+          "frame": 1187,
+          "x": 500,
+          "y": 380,
+          "action": "highlight",
+          "target": "Resource union"
+        },
+        {
+          "frame": 1457,
+          "x": 500,
+          "y": 1300,
+          "action": "move",
+          "target": "get(\"/api/users/abc\")"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "type": "demo",
+      "startFrame": 1502,
+      "endFrame": 1832,
+      "durationFrames": 330,
+      "cursorKeyframes": [
+        {
+          "frame": 1562,
+          "x": 540,
+          "y": 960,
+          "action": "click",
+          "target": "Autocomplete list item"
+        }
+      ]
     }
   ]
 }
